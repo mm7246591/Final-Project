@@ -7,7 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>學測考生線上測驗平台</title>
+    <script>
+        $(document).ready(function(){
+            $("#sel_year, #sel_obj").change(function(){
+                var a = $("#sel_year").val();
+                var b = $("#sel_obj").val();
+                if(a != "選擇年份" && b != "選擇科目") $("#strBtn").css("opacity", "100%");
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -24,19 +34,19 @@
     </header>
     <div class="container d-flex justify-content-center align-items-center">
         <form action="" class="d-flex justify-content-center">
-            <select class="form-select" aria-label="Default select example">
+            <select name="year" class="form-select" aria-label="Default select example" id="sel_year">
                 <option selected>選擇年份</option>
-                <option value="1">110</option>
-                <option value="2">109</option>
-                <option value="3">108</option>
-        </select>
-            <select class="form-select" aria-label="Default select example">
-                    <option selected>選擇科目</option>
-                    <option value="1">國文</option>
-                    <option value="2">英文</option>
-                    <option value="3">數學</option>
+                <option value="110">110</option>
+                <option value="109">109</option>
+                <option value="108">108</option>
             </select>
-            <button type="button" class="btn btn-secondary">開始考試</button>
+            <select name="object" class="form-select" aria-label="Default select example" id="sel_obj">
+                    <option selected>選擇科目</option>
+                    <option value="c">國文</option>
+                    <option value="e">英文</option>
+                    <option value="m">數學</option>
+            </select>
+            <button type="button" class="btn btn-secondary" id="strBtn" style="opacity: 0%">開始考試</button>
         </form>
     </div>
     <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
