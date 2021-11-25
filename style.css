@@ -189,3 +189,29 @@ header>#nav {
 .fa-download {
     font-size: 50px;
 }
+
+
+/* 題目 */
+
+.time {
+    width: 300px;
+    height: 200px;
+}
+
+.time span {
+    color: red;
+    font-weight: bold;
+}
+
+#question-form {
+    width: 800px;
+    height: 100%;
+    border: 1px groove black;
+    background-color: rgba(255, 255, 255, .9);
+}
+
+#answer-form {
+    width: 400px;
+    height: 100%;
+    border: 1px double black;
+}
