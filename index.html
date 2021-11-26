@@ -23,23 +23,25 @@
         </div>
     </header>
     <div class="container d-flex justify-content-center align-items-center">
-        <form action="Chinese.html" class="d-flex justify-content-center">
-            <select class="form-select" aria-label="Default select example">
+        <form action="Chinese.html" class="d-flex justify-content-center" id="home-form">
+            <select class="form-select" aria-label="Default select example" id="sel_year">
                 <option selected>選擇年份</option>
-                <option value="1">110</option>
-                <option value="2">109</option>
-                <option value="3">108</option>
+                <option value="110">110</option>
+                <option value="109">109</option>
+                <option value="108">108</option>
             </select>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" id="sel_obj">
                     <option selected>選擇科目</option>
-                    <option value="1">國文</option>
-                    <option value="2">英文</option>
-                    <option value="3">數學</option>
+                    <option value="c">國文</option>
+                    <option value="e">英文</option>
+                    <option value="m">數學</option>
             </select>
-            <input type="submit" class="btn btn-secondary" value="開始考試">
+            <input type="submit" class="btn btn-secondary" id="strBtn" value="開始考試">
         </form>
     </div>
     <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./jquery-3.6.0.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
