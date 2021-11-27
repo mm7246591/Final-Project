@@ -54,7 +54,7 @@ header>#nav {
 
 /* 首頁 */
 
-#home-form>input {
+#home-form>.button {
     display: none;
 }
 
