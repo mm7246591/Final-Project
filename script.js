@@ -1,14 +1,14 @@
 (function($) {
     $(function() {
         let str = '';
-        //--------首頁開始考試按鈕    
+        //首頁開始考試按鈕    
         $("#sel_year, #sel_obj").change(function() {
             const year = $("#sel_year").val();
             const obj = $("#sel_obj").val();
             if (year != "選擇年份" && obj != "選擇科目") $(".button").show()
         });
+        //選擇年份跟科目
         $(".button").click(function() {
-            //const year = $("#sel_year").val();
             const obj = $("#sel_obj").val();
             switch (obj) {
                 case "Chinese":
@@ -20,15 +20,13 @@
                 case "Math":
                     $("#home-form").attr("action", "examPage/Math.html");
                     break;
-                default:
-                    break;
             }
         });
-        //--------答案卡顯示  
+        //答案卡顯示  
         $(".content").hover(function() {
-                $(".content").toggleClass("toggle")
-            })
-            //--------國文答案格
+            $(".content").toggleClass("toggle")
+        });
+        //國文答案格
         for (let i = 1; i <= 42; i++) {
             str += `<label>
             <span>${i}</span>
@@ -39,6 +37,8 @@
             </label>`
         }
         $("#from-checkbox").append(str);
+
+
         //--------新增的每一個都要寫!!! Thanks
     })
 })(jQuery)
