@@ -38,7 +38,7 @@
             <input type="checkbox" name="Chinese" value="D">
             </label>`
         }
-        $("#answer-form").append(str);
+        $("#from-checkbox").append(str);
         //--------新增的每一個都要寫!!! Thanks
     })
 })(jQuery)
