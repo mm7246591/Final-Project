@@ -229,7 +229,7 @@ td {
     width: 400px;
     border: 2px dashed red;
     background-color: rgba(255, 255, 255, .9);
-    opacity: 0;
+    opacity: 100;
 }
 
 .toggle {
@@ -262,7 +262,7 @@ td {
 .Chinese label>input {
     width: 25px;
     height: 25px;
-    margin: 0 25px;
+    margin: 0 18px;
 }
 
 .English .letter p {

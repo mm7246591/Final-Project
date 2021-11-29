@@ -36,6 +36,7 @@
             <input type="checkbox" name="Chinese" value="B">
             <input type="checkbox" name="Chinese" value="C">
             <input type="checkbox" name="Chinese" value="D">
+            <input type="checkbox" name="Chinese" value="E">
             </label>`
         }
         //英文答案格
