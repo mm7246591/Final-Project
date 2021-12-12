@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>學測考生線上測驗平台</title>
+</head>
+
+<body>
+    <header>
+        <div class="d-flex justify-content-around align-items-center" id="nav">
+            <div class="fs-1 title">
+                <a href="index.html">學測測驗平台</a>
+            </div>
+            <div class="icon">
+                <a href="member.html"><img src="img/user.png" alt=""></a>
+                <a href="answer.html"><img src="img/answer.png" alt=""></a>
+            </div>
+        </div>
+    </header>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column logIn">
+            <form action="" class="d-flex flex-column justify-content-center align-items-center">
+                <h2 class="fs-3 my-1">會員登入</h2>
+                <div class="account">
+                    <label for="name" class="fs-5 my-1 ">帳號</label>
+                    <input type="text" id="ID" class="my-2">
+                </div>
+                <div class="password">
+                    <label for="name" class="fs-5" class="my-1">密碼</label>
+                    <input type="text" id="password" class="my-2">
+                </div>
+                <div class="btn my-2">
+                    <input type="submit" value="登入">
+                    <input type="button" value="取消">
+                </div>
+            </form>
+            <div class="text text-center">
+                <span>還沒註冊嗎? <a href="sign-up.html">註冊</a></span>
+            </div>
+        </div>
+    </div>
+    <script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
