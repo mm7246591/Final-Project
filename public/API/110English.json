@@ -27830,7 +27830,7 @@
                                     "@y": "172.85",
                                     "@width": "15.38",
                                     "@height": "11.04",
-                                    "text": "<span>(A)<img src='../img/49A.png' alt='' width='250' height='100'> (B)<img src='../img/49B.png' alt='' width='250' height='100'></span> "
+                                    "text": "<span>(A)<img src='/images/49A.png' alt='' width='250' height='100'> (B)<img src='/images/49B.png' alt='' width='250' height='100'></span> "
                                 }
                             },
                             {
@@ -27909,7 +27909,7 @@
                                     "@y": "237.91",
                                     "@width": "14.66",
                                     "@height": "11.04",
-                                    "text": "<span>(C)<img src='../img/49C.png' alt='' width='250' height='100'> (D)<img src='../img/49D.png' alt='' width='250' height='100'></span> "
+                                    "text": "<span>(C)<img src='/images/49C.png' alt='' width='250' height='100'>(D)<img src='/images/49D.png' alt='' width='250' height='100'></span> "
                                 }
                             },
                             {

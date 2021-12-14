@@ -4,23 +4,24 @@
         let englishStr = '';
         let mathStr = '';
         //首頁開始考試按鈕    
-        $("#sel_year, #sel_obj").change(function() {
+        $("#home-form>select").change(function() {
             const year = $("#sel_year").val();
             const obj = $("#sel_obj").val();
-            if (year != "選擇年份" && obj != "選擇科目") $(".button").show()
+            if (year !== "選擇年份" && obj !== "選擇科目")
+                $("#home-form>.button").show();
         });
         //選擇年份跟科目
         $(".button").click(function() {
             const obj = $("#sel_obj").val();
             switch (obj) {
                 case "Chinese":
-                    $("#home-form").attr("action", "examPage/Chinese.html");
+                    $("#home-form").attr("action", "/quize/Chinese");
                     break;
                 case "English":
-                    $("#home-form").attr("action", "examPage/English.html");
+                    $("#home-form").attr("action", "/quize/English");
                     break;
                 case "Math":
-                    $("#home-form").attr("action", "examPage/Math.html");
+                    $("#home-form").attr("action", "/quize/Math");
                     break;
             }
         });

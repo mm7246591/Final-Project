@@ -1,20 +1,24 @@
 extends layout
 block stylesheets 
-    link(href='/static/css/style.css' rel='stylesheet')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css' rel='stylesheet')
 block container
-    .container.d-flex.justify-content-center.align-items-center
-        form#home-form.d-flex.justify-content-center(action='')
-            select#sel_year.form-select(aria-label='Default select example')
-                option(selected='') 選擇年分
-                option(value='110') 110
-                option(value='109') 109
-                option(value='108') 108
-            select#sel_obj.form-select(aria-label='Default select example')
-                option(selected='') 選擇科目
-                option(value='Chinese') 國文
-                option(value='English') 英文
-                option(value='Math') 數學
-            .button
-                input.btn.btn-secondary(type='submit', value='開始考試')
+    .container.d-flex.flex-column.justify-content-around.align-items-center
+        h1 歷年學測詳解
+        .folder.d-flex.justify-content-center
+            a.d-flex.flex-column.align-items-center(href='/answer/110年詳解')
+                i.fas.fa-folder
+                | 110年
+            a.d-flex.flex-column.align-items-center(href='javascript:;')
+                i.fas.fa-folder
+                | 109年
+            a.d-flex.flex-column.align-items-center(href='javascript:;')
+                i.fas.fa-folder
+                | 108年
+            a.d-flex.flex-column.align-items-center(href='javascript:;')
+                i.fas.fa-folder
+                | 107年
+            a.d-flex.flex-column.align-items-center(href='javascript:;')
+                i.fas.fa-folder
+                | 106年
 block javascript 
-    script(src='/static/javascripts/script.js')
+    script(src='/javascripts/script.js')

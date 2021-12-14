@@ -1,0 +1,36 @@
+extends ../layout
+block container 
+    .d-flex.justify-content-between.my-5
+        .time.d-flex.flex-column.ms-5.h-100
+            h3 剩餘時間：
+            span#count-down-timer.text-center.fs-2
+        #question-form.d-flex.flex-column.p-5.h-auto
+            span 1. MathMathMathMathMathMathMathMathMath ：
+            span (A)「 賚 」 賞諸徒 ／ 「 齎 」 志 以 歿 
+            span (B)「 阡 」 陌交通 ／ 惹 禍 招 「 愆 」
+            span (C)「 餔 」 糟 歠 釃 ／ 「 仆 」 地 哭 號
+            span (D)「 矜 」 寡孤獨 ／ 罪 無 可 「 逭 」
+        .content.h-100
+            .d-flex.flex-column.align-items-center.p-3
+                span
+                    | 姓名
+                    input(type='text')
+                form#answer-form.d-flex.flex-column.align-items-center.my-3.Math(action='')
+                    .letter.d-flex
+                        p 1
+                        p 2
+                        p 3
+                        p 4
+                        p 5
+                        p 6
+                        p 7
+                        p 8
+                        p 9
+                        p 0
+                        p -
+                        p +/-
+                    #from-checkbox
+                    input#submit(type='submit')
+block javascript
+    script(src='/javascripts/script.js')
+    script(src='/javascripts/Math.js')

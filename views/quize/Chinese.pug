@@ -1,0 +1,24 @@
+extends ../layout
+block container 
+    .d-flex.justify-content-between.my-5
+        .time.d-flex.flex-column.ms-5.h-100
+            h3 剩餘時間：
+            span#count-down-timer.text-center.fs-2
+        #question-form.d-flex.flex-column.p-5.h-auto
+        .content.h-100
+            .d-flex.flex-column.align-items-center.p-3
+                span
+                    | 姓名
+                    input(type='text')
+                form#answer-form.d-flex.flex-column.align-items-center.my-3.Chinese(action='')
+                    .letter.d-flex
+                        p A
+                        p B
+                        p C
+                        p D
+                        p E
+                    #from-checkbox
+                    input#submit(type='submit')
+block javascript
+    script(src='/javascripts/script.js')
+    script(src='/javascripts/Chinese.js')
