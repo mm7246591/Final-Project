@@ -1,0 +1,20 @@
+extends layout
+block stylesheets 
+    link(href='/static/css/style.css' rel='stylesheet')
+block container
+    .container.d-flex.justify-content-center.align-items-center
+        form#home-form.d-flex.justify-content-center(action='')
+            select#sel_year.form-select(aria-label='Default select example')
+                option(selected='') 選擇年分
+                option(value='110') 110
+                option(value='109') 109
+                option(value='108') 108
+            select#sel_obj.form-select(aria-label='Default select example')
+                option(selected='') 選擇科目
+                option(value='Chinese') 國文
+                option(value='English') 英文
+                option(value='Math') 數學
+            .button
+                input.btn.btn-secondary(type='submit', value='開始考試')
+block javascript 
+    script(src='/static/javascripts/script.js')

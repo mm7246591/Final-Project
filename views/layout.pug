@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    link(href='/static/bootstrap-5.0.2-dist/css/bootstrap.min.css' rel='stylesheet')
+    link(href='/static/css/style.css' rel='stylesheet')
+    script(src='/static/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js')
+    script(src="/static/jquery-3.6.0.js")
+    Title 學測考生線上測驗平台
+    block stylesheets
+  body
+   header
+    #nav.d-flex.justify-content-around.align-items-center
+        .fs-1.title
+            a(href='/') 學生測驗平台
+        .icon
+            a(href='/member')
+              img(src='/static/images/user.png', alt='')
+            a(href='/answer')
+              img(src='/static/images/answer.png', alt='')
+    block container 
+    block javascript
