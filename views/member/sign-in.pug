@@ -1,0 +1,48 @@
+extends ../layout
+block stylesheets 
+block container 
+    .container.d-flex.justify-content-center.align-items-center
+        .d-flex.flex-column
+            form#sign-up-form.row.g-3(data-toggle='validator' name='myForm')
+                .col-12
+                    label.form-label(for='inputEmail4') 帳號
+                    input#inputid.form-control(type='text' size='30' required='')
+                .col-md-6
+                    label.form-label(for='inputPassword4') 密碼
+                    #errPW.help-block.with-errors.invalid
+                        p
+                    input.inputPassword.form-control(type='password' placeholder='請設定長度大於6的密碼' required='' oninput='chePassword(this.value)')
+                .col-md-6
+                    label.form-label(for='inputPassword4') 確認密碼
+                    #errPW2.invalid
+                        p
+                    input.inputPassword.form-control(type='password' required='' oninput='chePassword2(this.value)')
+                .col-5
+                    label.form-label(for='inputAddress') 姓名
+                    input#inputname.form-control(type='text' placeholder='請輸入全名' required='' onchange="value=value.replace(/[^\一-\龥]/g,'')")
+                .col-1.mt-5
+                    .form-check
+                        input.genderCheck.form-check-input(type='checkbox' checked='checked')
+                        label.form-check-label(for='gridCheck')
+                            | 男
+                .col-1.mt-5
+                    .form-check
+                        input.genderCheck.form-check-input(type='checkbox')
+                        label.form-check-label(for='gridCheck')
+                            | 女
+                .col-2
+                    label.form-label(for='inputAddress2') 年齡
+                    input#inputage.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')")
+                .col-2
+                    label.form-label(for='inputAddress2') 年級
+                    select#sel_grad.form-select(aria-label='Default select example')
+                        option(value='110' selected='') 1
+                        option(value='109') 2
+                        option(value='108') 3
+                .col-12
+                    label.form-label(for='inputAddress2') 電子郵件信箱
+                    input#inputemail.form-control(type='email' required='' oninput='cheEmail(this.value)' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$')
+                .col-12
+                    button.btn.btn-primary(type='submit') 註冊
+block javascript 
+    script(src='/javascripts/sign-up.js') 

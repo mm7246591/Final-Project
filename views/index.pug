@@ -2,18 +2,44 @@ extends layout
 block stylesheets 
 block container
     .container.d-flex.justify-content-center.align-items-center
-        form#home-form.d-flex.justify-content-center(action='')
-            select#sel_year.form-select(aria-label='Default select example')
-                option(selected='') 選擇年份
-                option(value='110') 110
-                option(value='109') 109
-                option(value='108') 108
-            select#sel_obj.form-select(aria-label='Default select example')
-                option(selected='') 選擇科目
-                option(value='Chinese') 國文
-                option(value='English') 英文
-                option(value='Math') 數學
-            .button
-                input.btn.btn-secondary(type='submit', value='開始考試')
+        .row.justify-content-center.d-flex
+            .col-4.mt-5
+                .card.text-center(style='width: 20rem;height:20rem')
+                    img.card-img-top(src='/images/card1.jpg' alt='...')
+                    .card-body
+                        h5.card-title 考試
+                        //- p.card-text
+                        //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
+                        a(href='/test')
+                            button.btn.btn-primary(type='button') Start
+            .col-3.mt-5
+                .card.text-center(style='width: 20rem;height:20rem')
+                    img.card-img-top(src='/images/card2.jpg' style='height:68%;width:100%')
+                    .card-body
+                        h5.card-title.align-items-center 會員登入
+                        //- p.card-text
+                        //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
+                        a(href='/member')
+                            button.btn.btn-secondary(type='button') sing-in
+                // Force next columns to break to new line
+            .w-100
+            .col-4.mt-5
+                .card.text-center(style='width: 20rem;height:20rem')
+                    img.card-img-top(src='/images/card3.jpg' style='height:68%;width:100%')
+                    .card-body
+                        h5.card-title.align-items-center 歷年解答
+                        //- p.card-text
+                        //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
+                        a(href='/answer')
+                            button.btn.btn-danger(type='button') Answer
+            .col-3.mt-5
+                .card.text-center(style='width: 20rem;height:20rem')
+                    img.card-img-top(src='/images/card4.jpg' style='height:68%;width:100%')
+                    .card-body
+                        h5.card-title.align-items-center 關於我們
+                        //- p.card-text
+                        //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
+                        a(href='/about')
+                            button.btn.btn-warning.align-items-center(type='button') About us
 block javascript 
     script(src='/javascripts/script.js')
