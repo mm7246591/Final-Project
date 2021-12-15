@@ -236,10 +236,6 @@
         margin: 10px 0;
     }
     
-    td {
-        /* border: 1px solid black; */
-    }
-    
     .content {
         width: 400px;
         border: 2px dashed red;
