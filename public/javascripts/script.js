@@ -3,6 +3,10 @@
         let chineseStr = '';
         let englishStr = '';
         let mathStr = '';
+        let count = 0;
+        let chineseBar = [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //43
+        let englishBar = [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //57
+        let mathBar = [9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; //21
         //首頁開始考試按鈕    
         $("#home-form>select").change(function() {
             const year = $("#sel_year").val();
@@ -56,6 +60,7 @@
             <input type="checkbox" name="English" value="J">
             </label>`
         }
+        //數學答案格
         for (let i = 1; i <= 20; i++) {
             mathStr += `<label>
             <span>${i}</span>
@@ -76,6 +81,84 @@
         $(".Chinese>#from-checkbox").append(chineseStr);
         $(".English>#from-checkbox").append(englishStr);
         $(".Math>#from-checkbox").append(mathStr);
+        //--------國文考試進度條
+        $(".chinesCheckForm>label>input").click((e)=>{
+            let $span = e.currentTarget.parentElement.firstElementChild.textContent;
+            let checkOther = false;
+            if(chineseBar[$span] != 1) 
+            {
+                chineseBar[$span] = 1;
+                count++;
+            }
+            else
+            {
+                let a = e.currentTarget.parentElement.children;
+                $(a).each((e)=>{
+                    if($(a[e]).prop("checked")) checkOther=true;
+                });
+                if(checkOther) return 0;
+                else{
+                    chineseBar[$span] = 0;
+                    count--;
+                }
+            }
+            console.log(chineseBar);
+            console.log(count);
+            let s = (count/42)*100;
+            $(".chinesebar").css("width", s+"%");
+        });
+        //--------英文考試進度條
+        $(".englishCheckForm>label>input").click((e)=>{
+            let $span = e.currentTarget.parentElement.firstElementChild.textContent;
+            let checkOther = false;
+            if(englishBar[$span] != 1) 
+            {
+                englishBar[$span] = 1;
+                count++;
+            }
+            else
+            {
+                let a = e.currentTarget.parentElement.children;
+                $(a).each((e)=>{
+                    if($(a[e]).prop("checked")) checkOther=true;
+                });
+                if(checkOther) return 0;
+                else{
+                    englishBar[$span] = 0;
+                    count--;
+                }
+            }
+            console.log(englishBar);
+            console.log(count);
+            let s = (count/56)*100;
+            $(".englishbar").css("width", s+"%");
+        });
+        //--------數學考試進度條
+        $(".mathCheckForm>label>input").click((e)=>{
+            let $span = e.currentTarget.parentElement.firstElementChild.textContent;
+            let checkOther = false;
+            if(mathBar[$span] != 1) 
+            {
+                mathBar[$span] = 1;
+                count++;
+            }
+            else
+            {
+                let a = e.currentTarget.parentElement.children;
+                $(a).each((e)=>{
+                    if($(a[e]).prop("checked")) checkOther=true;
+                });
+                if(checkOther) return 0;
+                else{
+                    mathBar[$span] = 0;
+                    count--;
+                }
+            }
+            console.log(mathBar);
+            console.log(count);
+            let s = (count/20)*100;
+            $(".mathbar").css("width", s+"%");
+        });
         //--------新增的每一個都要寫!!! Thanks
     })
 })(jQuery)
