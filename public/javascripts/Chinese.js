@@ -33,7 +33,6 @@ fetch("/API/110Chinese.json")
         
       }
     }
-    
     // let topic =data.document.page[1].row[6].column[0].text.text;
     // let topic1 =data.document.page[1].row[7].column[0].text.text;
     // let topic2 =data.document.page[1].row[7].column[2].text.text;
@@ -47,19 +46,13 @@ fetch("/API/110Chinese.json")
     //     console.log(topic);
     //   }
     // }
-    // console.log(topic);
-    // console.log(topic1);
-    // console.log(topic2);
-    // console.log(topic3);
-    // console.log(topic4);
-    // console.log(topic5);
-  
   });
+
 //----時間
-  function displayTime() {
+function displayTime() {
     let time_minutes = 80; // Value in minutes
     let time_seconds = 0; // Value in seconds
-    let duration = time_minutes * 60 + time_seconds;
+    let duration = time_minutes * 60 + time_seconds; //Value in total seconds
     element = document.querySelector('#count-down-timer');
     element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
     startCountDown(--duration, element);
@@ -78,7 +71,9 @@ function startCountDown(duration, element) {
         sec = parseInt(secondsRemaining % 60);
         element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
         secondsRemaining = secondsRemaining - 1;
-        if (secondsRemaining < 0) {
+        if(secondsRemaining == 598){
+           alert("考試時間剩餘 10 分鐘。");
+        } else if (secondsRemaining < 0) {
             clearInterval(countInterval);
             document.getElementById('submit').click();
         };

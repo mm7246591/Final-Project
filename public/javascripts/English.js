@@ -54,7 +54,9 @@ function startCountDown(duration, element) {
         sec = parseInt(secondsRemaining % 60);
         element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
         secondsRemaining = secondsRemaining - 1;
-        if (secondsRemaining < 0) {
+        if(secondsRemaining == 598){
+           alert("考試時間剩餘 10 分鐘。");
+        } else if (secondsRemaining < 0) {
             clearInterval(countInterval);
             document.getElementById('submit').click();
         };
