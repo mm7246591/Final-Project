@@ -231,13 +231,11 @@
         background-color: rgba(255, 255, 255, .9);
         text-align: left;
     }
-    
+    #question-form td{
+        border:1px black solid;
+    }
     #question-form span {
         margin: 10px 0;
-    }
-    
-    td {
-        /* border: 1px solid black; */
     }
     
     .content {
