@@ -32,7 +32,7 @@ block container
                             | 女
                 .col-2
                     label.form-label(for='inputAddress2') 年齡
-                    input#inputage.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')")
+                    input#inputage.form-control(type='text' required='' onkeyup="value=value.replace(/[^\d]/g,')")
                 .col-2
                     label.form-label(for='inputAddress2') 年級
                     select#sel_grad.form-select(aria-label='Default select example')
