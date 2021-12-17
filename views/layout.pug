@@ -11,15 +11,15 @@ html
    header
     #nav.d-flex.justify-content-around.align-items-center
         .fs-1.title
-            a(href='/') 學側測驗平台
-        .icon
-            a(href='/member')
-              img(src='/images/user.png', alt='')
-            a(href='/answer')
-              img(src='/images/answer.png', alt='')
-            a(href='/test')
-              img(src='/images/test.png', alt='')
-            a(href='/about')
-              img(src='/images/group.png', alt='' style="width: 50px;height: 57px;margin: 0 -5px;")
+            a(href='/') 學測測驗平台
+        ul.nav.justify-content-center.fs-5
+          li.nav-item
+            a.nav-link.active.link-dark(aria-current='page' href='/about') 關於我們
+          li.nav-item
+            a.nav-link.link-dark(href='/member') 會員登入
+          li.nav-item
+            a.nav-link.link-dark(href='/answer') 歷屆解答
+          li.nav-item
+            a.nav-link.link-dark(href='/test' tabindex='-1' aria-disabled='true') 開始考試
     block container 
     block javascript

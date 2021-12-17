@@ -1,0 +1,30 @@
+extends ../layout
+block container 
+    .container.d-flex.justify-content-center.align-items-top.mt-5
+        #about.d-flex.flex-column.p-5.align-items-center(style="border-collapse:collapse;")
+            h1 歷史成績
+            table.table
+                tbody
+                    tr
+                        td
+                            .row
+                                p.fs-2 王小明
+                                table.table.table-striped.fs-3.table-dark
+                                    tbody
+                                        tr
+                                            th(scope='col') 
+                                            th(scope='col') 年份
+                                            th(scope='col') 科別
+                                            th(scope='col') 成績
+                                        tr
+                                            th(scope='row') 1
+                                            td 110
+                                            td 國文
+                                            td 60
+                                        tr
+                                            th(scope='row') 2
+                                            td 110
+                                            td 英文
+                                            td 70
+block javascript 
+    script(src='/javascripts/script.js')
