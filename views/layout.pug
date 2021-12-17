@@ -12,10 +12,14 @@ html
     #nav.d-flex.justify-content-around.align-items-center
         .fs-1.title
             a(href='/') 學測測驗平台
-        .icon
-            a(href='/member')
-              img(src='/images/user.png', alt='')
-            a(href='/answer')
-              img(src='/images/answer.png', alt='')
+        ul.nav.justify-content-center.fs-5
+          li.nav-item
+            a.nav-link.active.link-dark(aria-current='page' href='/about') 關於我們
+          li.nav-item
+            a.nav-link.link-dark(href='/member') 會員登入
+          li.nav-item
+            a.nav-link.link-dark(href='/answer') 歷屆解答
+          li.nav-item
+            a.nav-link.link-dark(href='/test' tabindex='-1' aria-disabled='true') 開始考試
     block container 
     block javascript
