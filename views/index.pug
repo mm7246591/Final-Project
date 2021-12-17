@@ -1,47 +1,42 @@
 extends layout
 block stylesheets 
 block container
-    .container.d-flex.justify-content-center.align-items-center
-        .row.justify-content-center.d-flex
-            .col-4.mt-5
-                .card.text-center(style='width: 18rem; height:18rem')
-                    img.card-img-top(src='/images/test.png' alt='...' style="margin-left: 20%;")
-                    .card-body
-                        //h5.card-title 開始考試
-                        //- p.card-text
+    .container-filud.d-flex.justify-content-center.align-items-center
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center
+                .card.text-center.justify-content-bottom(style='width: 20rem;height:30rem;background:url("/images/card1.jpg") center center; background-size: cover;')
+                    //- img.card-img-top(src='/images/card1.jpg' style='height:68%;width:100%')
+                        //- h5.card-title 
+                    p.card-text.mt-5
                         //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        a(href='/test')
-                            button.btn.btn-primary(type='button') 開始考試
+                    a(href='/test')
+                        button.btn.btn-primary.mt-5(type='button') 開始考試
                             //Start
-            .col-3.mt-5
-                .card.text-center(style='width: 18rem; height:18rem')
-                    img.card-img-top(src='/images/user.png')
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center
+                .card.text-center.justify-content-bottom(style='width: 20rem;height:30rem;background:url("/images/card2.jpg") center center; background-size: cover;')
+                    //- img.card-img-top(src='/images/card2.jpg' style='height:68%;width:100%;')
                     //style='height:68%;width:100%'
-                    .card-body
+
                         //h5.card-title.align-items-center 會員登入
-                        //- p.card-text
+                    p.card-text.mt-5
                         //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        a(href='/member')
-                            button.btn.btn-secondary(type='button') 會員登入
+                    a(href='/member/sign-in')
+                        button.btn.btn-secondary.mt-5(type='button') 會員專區
                 // Force next columns to break to new line
-            .w-100
-            .col-4.mt-5
-                .card.text-center(style='width: 18rem; height:18rem')
-                    img.card-img-top(src='/images/card3.jpg' style='height:68%;width:100%')
-                    .card-body
-                        h5.card-title.align-items-center 歷年解答
-                        //- p.card-text
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center
+                .card.text-center.justify-content-bottom(style='width: 20rem;height:30rem;background:url("/images/card3.jpg") center center; background-size: 150% auto;')
+                    //- img.card-img-top(src='/images/card3.jpg' style='height:68%;width:100%;')
+                        //- h5.card-title.align-items-center 歷年解答
+                    p.card-text.mt-5
                         //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        a(href='/answer')
-                            button.btn.btn-danger(type='button') Answer
-            .col-3.mt-5
-                .card.text-center(style='width: 18rem; height:18rem')
-                    img.card-img-top(src='/images/card4.jpg' style='height:68%;width:100%')
-                    .card-body
-                        h5.card-title.align-items-center 關於我們
-                        //- p.card-text
+                    a(href='/answer')
+                        button.btn.btn-danger.mt-5(type='button') Answer
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center
+                .card.text-center.justify-content-bottom(style='width: 20rem;height:30rem;background:url("/images/card4.jpg") center center; background-size: cover;')
+                    //- img.card-img-top(src='/images/card4.jpg' style='height:68%;width:100%;')
+                        //- h5.card-title.align-items-center 關於我們
+                    p.card-text.mt-5
                         //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
-                        a(href='/about')
-                            button.btn.btn-warning.align-items-center(type='button') About us
+                    a(href='/about')
+                        button.btn.btn-warning.mt-5(type='button') About us
 block javascript 
     script(src='/javascripts/script.js')
