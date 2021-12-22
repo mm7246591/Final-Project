@@ -249,10 +249,12 @@
     }
     
     .content {
-        width: 400px;
-        border: 2px dashed red;
-        background-color: rgba(255, 255, 255, .9);
-        opacity: 0;
+        /* width: 400px;
+        border: 2px dashed red;*/
+         background-color: rgba(255, 255, 255, .9); 
+        width: 650px;
+        border:5px groove #c30606;
+        border-radius: 10px;
     }
     
     .toggle {
@@ -261,49 +263,62 @@
     }
     
     #answer-form {
-        width: 350px;
-        border: 1px double red;
+        /* width: 350px;
+        border: 1px double red; */
+        width: 650px;
     }
     
     #answer-form .letter {
-        width: 330px;
-        margin-left: 18px;
+        /* width: 330px;
+        margin-left: 18px; */
+        width: 600px;
+        margin-left: 11px;
+        border-bottom: 1px solid red;
     }
     
     .Chinese .letter p {
-        margin: auto;
-        font-size: 20px;
+        margin: 0 10px;
+        /* margin: auto; */
+        font-size: 16px;
     }
     
     .Chinese label {
-        width: 350px;
-        margin: 10px 0;
-        line-height: 20px;
+        width: 215px;
+        /* width: 350px;
+  
+        line-height: 20px; */
+        margin: 8px 0;
         text-align: center;
     }
     
     .Chinese label>input {
-        width: 25px;
-        height: 25px;
-        margin: 0 18px;
+        width: 15px;
+        /* width: 25px;
+        height: 25px; */
+        margin: 0 6px;
     }
     
     .English .letter p {
-        margin: auto;
-        font-size: 20px;
+        /* margin: auto;
+        font-size: 20px; */
+        margin: 0 0px 0 16px;
+        font-size: 16px;
     }
     
     .English label {
-        width: 350px;
-        margin: 10px 0;
-        line-height: 20px;
+        /* width: 350px; */
+        width: 325px;
+        /* margin: 10px 0;
+        line-height: 20px; */
         text-align: center;
     }
     
     .English label>input {
-        width: 20px;
+        /* width: 20px;
         height: 20px;
-        margin: 0 4px;
+        margin: 0 4px; */
+        width: 12px;
+        margin: 0 5px;
     }
     
     .Math .letter p {
@@ -322,6 +337,44 @@
         width: 18px;
         height: 18px;
         margin: 0 2px;
+    }
+    .Mathcontent>table{
+        border-collapse: collapse;
+        border: 1px #000000 solid;
+    }
+    .Mathcontent>table>tbody>tr>td{
+        border: 1px solid #000000;
+        text-align: center;
+        font-size: 20px;
+        color: black;
+    }
+    .Mathcontent>table>tbody>tr>th{
+        border: 1px solid #050303;
+        text-align: center;
+        font-size: 20px;
+        color: black;
+    }
+    .out{
+        border-top: 5em #505050 solid; /*上邊框寬度等於表格第一行行高*/
+        border-left: 200px #1b1b1b solid; /*左邊框寬度等於表格第一行第一格寬度*/
+        position: relative; /*讓裏面的兩個子容器絕對定位*/
+        color:rgb(255, 255, 255);
+    }
+   .out>b{
+        font-style: normal;
+        display: block;
+        position: absolute;
+        top: -5em;
+        left: -160px;
+        width: 200px;
+    }
+    .out>em{
+        font-style: normal;
+        display: block;
+        position: absolute;
+        top: -40px;
+        left: -230px;
+        width: 200px;
     }
     /*註冊表單*/
     
