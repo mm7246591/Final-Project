@@ -29,7 +29,7 @@ block container
                 
                 .col-2
                     label.form-label(for='age') 年齡
-                    input#age.form-control(name="age" type='text' required='' onkeyup="value=value.replace(/[^\d]/g,')")
+                    input#age.form-control(name="age" type='text' required='' oninput="value=value.replace(/[^\\d]/g,'')" )
                     
                 .col-3
                     label.form-label(for='age') 性別
@@ -49,7 +49,7 @@ block container
                         option(value='3') 3
                 .col-12
                     label.form-label(for='mail') 電子郵件信箱
-                    input#mail.form-control(name="mail" type='text' required='' oninput='cheEmail(this.value)' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$')
+                    input#mail.form-control(name="mail" type='text' required='' oninput='' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$')
                 .col-12
                     button.btn.btn-primary(type='submit') 註冊
 block javascript 
