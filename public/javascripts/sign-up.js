@@ -20,6 +20,6 @@ function chePassword2(e) {
     if (checkPassword != password) $("#errPW2>p").text("請數入相同的密碼");
     else {
         $("#errPW2>p").text("");
-        check = !check;
+        check = true;
     }
 }
