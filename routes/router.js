@@ -27,6 +27,12 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
+router.post('/quize/Chinese', function(req, res){
+    var answer = req.body.Chinese1;
+    console.log(req.body);
+    res.redirect('/test');
+});
+
 // 這裡的業務邏輯將寫在 兩個post路由裡！！！
 router.post('/member', function (req, res) {
 	var postData = {
@@ -45,7 +51,7 @@ router.post('/member', function (req, res) {
             console.log('賬號或密碼錯誤');
             res.redirect('/member'); 
         }
-    } )
+    })
 });
 router.post('/member/sign-up', function (req, res) {
         // 獲取用戶提交的信息
