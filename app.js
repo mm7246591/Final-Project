@@ -21,7 +21,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));//將logger加入到app中，可提供於大數據使用
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 // app.use('/static', express.static(__dirname + '/public'));
