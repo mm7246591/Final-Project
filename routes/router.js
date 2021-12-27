@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var User = require('../models/users');
+
 router.get('/', (req, res) => {
     res.render('index');
 })
@@ -26,7 +27,13 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
-// 這裏的業務邏輯將寫在 兩個post 路由裏 
+router.post('/quize/Chinese', function(req, res){
+    var answer = req.body.Chinese1;
+    console.log(req.body);
+    res.redirect('/test');
+});
+
+// 這裡的業務邏輯將寫在 兩個post路由裡！！！
 router.post('/member', function (req, res) {
 	var postData = {
         username: req.body.username,
@@ -40,14 +47,11 @@ router.post('/member', function (req, res) {
         if(data){
             console.log('登錄成功');
             res.redirect('/'); 
-
-            // res.send('登錄成功');
         }else{
             console.log('賬號或密碼錯誤');
             res.redirect('/member'); 
-            // res.send('賬號或密碼錯誤')
         }
-    } )
+    })
 });
 router.post('/member/sign-up', function (req, res) {
         // 獲取用戶提交的信息
@@ -67,7 +71,7 @@ router.post('/member/sign-up', function (req, res) {
     //查詢是否被註冊
     User.findOne({username: postData.username}, function (err, data) {
         if (data) {
-            res.send('用戶名已被註冊');
+            res.send('此用戶名已被註冊');
         } else {
             // 保存到數據庫
             User.create(postData, function (err, data) {
@@ -85,7 +89,5 @@ router.get('/userList', function (req, res) {
         res.send(data)
     });
 });
-
-
 
 module.exports = router;

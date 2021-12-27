@@ -20,13 +20,6 @@ block container
                 .col-4
                     label.form-label(for='name') 姓名
                     input#name.form-control( name="name" type='text' placeholder='請輸入全名' required='' onchange="value=value.replace(/[^\一-\龥]/g,'')")
-                //- .col-1.mt-5
-                //-     .form-check
-                //-         input.genderCheck.form-check-input(type='checkbox' checked='checked' name='gender' value="男") 男
-                //-         input.genderCheck.form-check-input(type='checkbox' checked='checked' name='gender' value="男") 女
-                //-         label.form-check-label(for='gridCheck')
-                //-             | 男
-                
                 .col-2
                     label.form-label(for='age') 年齡
                     input#age.form-control(name="age" type='text' required='' oninput="value=value.replace(/[^\\d]/g,'')" )
@@ -36,11 +29,6 @@ block container
                     select#sel_gender.form-select(aria-label='Default select example' name='gender')
                         option(value='男' selected='') 男
                         option(value='女') 女
-                    //- .form-check
-                    //-     input.genderCheck.form-check-input(type='checkbox' name='gender' value="女")
-                    //-     label.form-check-label(for='gridCheck')
-                    //-         | 女
-
                 .col-2
                     label.form-label(for='inputAddress2') 年級
                     select#sel_grad.form-select(aria-label='Default select example' name='grade')

@@ -37,11 +37,11 @@
         for (let i = 1; i <= 42; i++) {
             chineseStr += `<label>
             <span>${i}</span>
-            <input type="checkbox" name="Chinese" value="A">
-            <input type="checkbox" name="Chinese" value="B">
-            <input type="checkbox" name="Chinese" value="C">
-            <input type="checkbox" name="Chinese" value="D">
-            <input type="checkbox" name="Chinese" value="E">
+            <input type="checkbox" name="Chinese${i}" value="A">
+            <input type="checkbox" name="Chinese${i}" value="B">
+            <input type="checkbox" name="Chinese${i}" value="C">
+            <input type="checkbox" name="Chinese${i}" value="D">
+            <input type="checkbox" name="Chinese${i}" value="E">
             </label>`
         }
         //英文答案格

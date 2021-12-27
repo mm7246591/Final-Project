@@ -2,22 +2,22 @@ extends ../layout
 block stylesheets 
 block container
     .container-filud.d-flex.justify-content-center.align-items-center
-            .col-2.mt-5.d-flex.align-items-center.justify-content-center
-                .card.text-center.justify-content-bottom.align-items-center(style='width: 20rem;height:30rem;border: 10px groove #028aff;background-color: #c8d6ff;')
-                    img.card-img-top(src='/images/refer.png' style='height:60%;width:90%')
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center(style="width: 20%;") 
+                .card.text-center.justify-content-bottom.align-items-center(style='width: 100%;height:30rem; background-color: #f6f9ff;')
+                    img.card-img-top(src='/images/refer.png' style='width:90%')
                         //- h5.card-title 
                         //-     | Some quick example text to build on the card title and make up the bulk of the card's content.
                     a(href='/member')
-                        button.btn.btn-primary.mt-5(type='button') Sign-in
-            .col-2.mt-5.d-flex.align-items-center.justify-content-center
-                .card.text-center.justify-content-bottom.align-items-center(style='width: 20rem;height:30rem;border: 10px groove #eb3939;background-color: #efd7d7;')
-                    img.card-img-top(src='/images/user.png' style='height:60%;width:90%' )
+                        button.btn.btn-primary.mt-5(type='button') 會員登入
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center(style="width: 20%;") 
+                .card.text-center.justify-content-bottom.align-items-center(style='width: 100%;height:30rem; background-color: #fdf1f1;')
+                    img.card-img-top(src='/images/user.png' style='width:90%')
                     a(href='/member/sign-in')
-                        button.btn.btn-danger.mt-5(type='button') Member profile
-            .col-2.mt-5.d-flex.align-items-center.justify-content-center
-                .card.text-center.justify-content-bottom.align-items-center(style='width: 20rem;height:30rem;border: 10px groove #ff8b39;background-color: #f7e7d1;')
-                    img.card-img-top(src='/images/test.png' style='height:60%;width:90%')
+                        button.btn.btn-danger.mt-5(type='button') 會員資料
+            .col-2.mt-5.d-flex.align-items-center.justify-content-center(style="width: 20%;") 
+                .card.text-center.justify-content-bottom.align-items-center(style='width: 100%;height:30rem; background-color: #fff3e4;')
+                    img.card-img-top(src='/images/test.png' style='width:90%;margin-left: 5%;')
                     a(href='/member/score')
-                        button.btn.btn-warning.mt-5(type='button') History score
+                        button.btn.btn-warning.mt-5(type='button') 歷史成績
 block javascript 
     script(src='/javascripts/script.js')
