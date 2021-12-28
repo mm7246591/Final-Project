@@ -37,8 +37,9 @@ block container
                         p C
                         p D
                         p E
-                    #from-checkbox.chinesCheckForm(action='/quize/Chinese' method='POST')
-                        input#submit(type='submit')
+                    #from-checkbox.chinesCheckForm(action='')
+                    a(href='/score')
+                        button#submit(type='button') 提交
 block javascript
     script(src='/javascripts/script.js')
     script(src='/javascripts/Chinese.js')

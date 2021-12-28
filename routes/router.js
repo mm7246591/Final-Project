@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var User = require('../models/users');
+var Score = require('../models/score');
 
 router.get('/', (req, res) => {
     res.render('index');
@@ -27,10 +28,8 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
-router.post('/quize/Chinese', function(req, res){
-    var answer = req.body.Chinese1;
-    console.log(req.body);
-    res.redirect('/test');
+router.get('/score', (req, res) => {
+    res.render('score');
 });
 
 // 這裡的業務邏輯將寫在 兩個post路由裡！！！

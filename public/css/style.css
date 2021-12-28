@@ -224,6 +224,10 @@
     }
     /* 題目 */
     
+    #submit {
+        border-radius: revert;
+    }
+
     .time {
         width: 300px;
     }
