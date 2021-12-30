@@ -34,8 +34,8 @@ router.post('/:where/:type', (req, res) => {
         let score = 0;
         // 拿取資料庫答案
         Answer.findOne({ '_id': '61cbc5d8f91f428ddb58aff3' }, function(err, objects) {
-            let Single = datas.Single;
-            let Multiple = datas.Multiple;
+            let Single = objects.Single;
+            let Multiple = objects.Multiple;
             let singleDb = [];
             let multipleDb = [];
             // 單選
@@ -243,7 +243,7 @@ router.post('/:where/:type', (req, res) => {
         let score = 0;
         // 拿取資料庫答案
         Answer.findOne({ '_id': '61c9d98695abd3f6e959e4c4' }, function(err, objects) {
-            let Single = datas.Single;
+            let Single = objects.Single;
             let singleDb = [];
             // 單選
             for (let i of Single) {
@@ -322,9 +322,9 @@ router.post('/:where/:type', (req, res) => {
         let score = 0;
         // 拿取資料庫答案
         Answer.findOne({ '_id': '61cd353e9c0ef29b8f8ae276' }, function(err, objects) {
-            let Single = datas.Single;
-            let Multiple = datas.Multiple;
-            let Optional = datas.Optional;
+            let Single = objects.Single;
+            let Multiple = objects.Multiple;
+            let Optional = objects.Optional;
             let singleDb = [];
             let multipleDb = [];
             let optionalDb = [];
