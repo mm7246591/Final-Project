@@ -28,8 +28,20 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
+
 router.get('/score', (req, res) => {
     res.render('score');
+});
+
+router.get('/score', (req, res) => {
+    console.log("Yaaaaaa");
+    Score.findOne({
+        type: req.query.type,
+        score: req.query.score
+    }, function(err, data){
+        if(err) throw err;
+        else res.json(data);
+    })
 });
 
 // 這裡的業務邏輯將寫在 兩個post路由裡！！！
