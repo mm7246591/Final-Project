@@ -23,3 +23,6 @@ function chePassword2(e) {
         check = true;
     }
 }
+$(".modify").click(function() {
+    confirm("確認送出嗎？");
+});

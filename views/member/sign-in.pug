@@ -5,42 +5,41 @@ block container
         .d-flex.flex-column.justify-content-center.align-items-center.mt-5
             .memberrocuse.justify-content-center.align-items-center
                 h1 會員資料
-                    a.mx-1(href='')
-                        img(src='/images/fix.png', alt='' style="width:40px;height:40px")
+                    img.mx-1.modify(src='/images/fix.png', alt='' style="width:40px;height:40px;cursor:pointer")
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputEmail4') 帳號
                     .col-6.mt-1
-                        input#inputid.form-control(type='text' size='30' required='')
+                        input#inputid.form-control(type='text' size='30' required='' value=`${user.username}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputPassword4') 密碼
                     .col-6.mt-1
-                        input.inputPassword.form-control(type='password' required='' oninput='chePassword(this.value)')
+                        input.inputPassword.form-control(type='password' required='' oninput='chePassword(this.value)'  value=`${user.password}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress') 姓名
                     .col-6.mt-1
-                        input#inputname.form-control(type='text' required='' onchange="value=value.replace(/[^\一-\龥]/g,'')")
+                        input#inputname.form-control(type='text' required='' onchange="value=value.replace(/[^\一-\龥]/g,'')"  value=`${user.name}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-check-label(for='gridCheck') 性別
                     .col-6.mt-1
-                        input#input.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')") 
+                        input#input.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')"  value=`${user.gender}`) 
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 年齡
                     .col-6.mt-1
-                        input#inputage.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')")
+                        input#inputage.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')" value=`${user.age}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 年級
                     .col-6.mt-1
-                        input#inputgrade.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')")
+                        input#inputgrade.form-control(type='text' placeholder='' required='' onkeyup="value=value.replace(/[^\d]/g,'')" value=`${user.grade}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 電子郵件
                     .col-6.mt-1
-                        input#inputemail.form-control(type='email' required='' oninput='cheEmail(this.value)' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$')
+                        input#inputemail.form-control(type='email' required='' oninput='cheEmail(this.value)' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$' value=`${user.mail}`)
 block javascript 
     script(src='/javascripts/sign-up.js') 
