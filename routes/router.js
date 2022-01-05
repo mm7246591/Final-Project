@@ -3,6 +3,7 @@ const router = express.Router();
 var User = require('../models/users');
 var Score = require('../models/score');
 var Answer = require('../models/answer');
+
 router.get('/', (req, res) => {
     res.render('index');
 })
@@ -43,6 +44,7 @@ router.post('/member', function(req, res) {
         }
     })
 });
+
 router.post('/member/sign-up', function(req, res) {
     // 獲取用戶提交的信息
     var postData = {
@@ -73,12 +75,14 @@ router.post('/member/sign-up', function(req, res) {
         }
     });
 });
+
 router.get('/userList', function(req, res) {
     var userList = User.find({}, function(err, data) {
         if (err) throw err;
         res.send(data)
     });
 });
+
 router.post('/:where/:type', (req, res) => {
     if (req.params.type === 'Chinese') {
         // 接收國文答案
@@ -620,6 +624,7 @@ router.post('/:where/:type', (req, res) => {
         res.redirect('/');
     };
 });
+
 router.get('/answer', (req, res) => {
     res.render('answer');
 });
@@ -637,7 +642,15 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/score', (req, res) => {
+    console.log("Yaaaaaa");
     res.render('score');
+    Score.findOne({
+        type: req.query.type,
+        score: req.query.score
+    }, function(err, data){
+        if(err) throw err;
+        else res.json(data);
+    })
 });
 
 module.exports = router;
