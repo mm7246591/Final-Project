@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let dataSchema = mongoose.Schema({
+let objectSchema = mongoose.Schema({
     object: {
         type: String
     },
@@ -14,5 +14,6 @@ let dataSchema = mongoose.Schema({
         type: Array
     }
 });
-
-let objects = module.exports = mongoose.model('objects', dataSchema)
+objectSchema.set('collection', 'objects');
+let objects = mongoose.model('objects', objectSchema);
+module.exports = objects;

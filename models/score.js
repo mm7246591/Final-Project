@@ -8,9 +8,9 @@ var scoreSchema = new mongoose.Schema({
         type: Number
     }
 });
-
-module.exports = mongoose.model('score', scoreSchema);
-
+scoreSchema.set('collection', 'score');
+let score = mongoose.model('score', scoreSchema);
+module.exports = score;
 // const scoreModel = mongoose.model('score', scoreSchema);
 // const testModel = mongoose.model('score', scoreSchema);
 // const content = new testModel({type: "chinese", score: 88});
