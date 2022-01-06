@@ -1,19 +1,98 @@
 const express = require('express');
+var session = require('express-session');
+const flash = require('express-flash');
+const MongoStore = require('connect-mongo'); 
+const passport =require('../passport_conf');
+const bcrypt = require('bcrypt');
+const LocalStrategy =require('passport-local').Strategy;
 const router = express.Router();
-var User = require('../models/users');
-var Score = require('../models/score');
-var Answer = require('../models/answer');
+const User = require('../models/users');
 
+//檢查有沒有登入
+// const isAuthenticated =(req,res,next)=>{
+//     if(req.isAuthenticated()){
+//         return next();
+//     }
+//     res.redirect('/member');
+// }
+router.use(flash());
+router.use(session({
+    secret: process.env.session_secret, 
+    store:MongoStore.create({mongoUrl:process.env.databaseUrl,ttl:60}),
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+  }));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+router.get('/member/sign-up', (req, res) => {
+    console.log('訪問註冊');
+    res.render('member/sign-up', {
+        // title: 'Register'
+    });
+});
+
+router.post('/member/sign-up',passport.authenticate('register', {
+    successRedirect: '/member',
+    failureRedirect:'/member/sign-up',
+    failureFlash:true
+}),(req,res)=>{
+    // res.redirect('/login');
+});
+
+router.post('/member/sign-up',(req,res,next)=>{
+    const { 
+        username,
+        email,
+        password
+    }= req.body;
+    const errors=[];
+    if(!username || !email || !password){
+        errors.push({
+            msg:'請填寫欄位資料'
+        });
+    }
+    else{
+        console.log('進入authenticate register')
+        passport.authenticate('register',{
+            successRedirect: '/member',
+            failureRedirect:'/member/sign-up',
+            failureFlash:true
+        })(req,res,next);
+    }
+});
+router.get('/member', (req, res) => {
+    console.log('訪問登入');
+    res.render('member', {
+        // title: 'Login'
+    });
+});
+
+router.post('/member',function(req, res) {
+    var postData = {
+        username: req.body.username,
+        password: req.body.password
+    };
+    User.findOne({
+        username: postData.username,
+    }, function(err, data) {
+        console.log(req.body.password);
+        console.log(data.password);
+        if(bcrypt.compare(req.body.password,data.password)){
+            console.log('登錄成功');
+            res.render('index',{title:data.name,status:true});
+        }
+        else{
+            console.log('登錄失敗');
+            res.render('member',{errorusername:'帳號或密碼錯誤'});
+        }
+    })
+});
 router.get('/', (req, res) => {
     res.render('index');
 })
-
-router.get('/score', (req, res) => {
-    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
-        if(err) throw err;
-        res.render('score', {title: data.score});
-    });
-});
 
 router.get('/:where/:type', (req, res) => {
     console.log(req.originalUrl)
@@ -31,7 +110,31 @@ router.get('/:where/:type', (req, res) => {
         res.render(`${req.params.where}/${req.params.type}`);
     }
 });
-// 這裡的業務邏輯將寫在 兩個post路由裡！！！
+
+router.get('/userList', function(req, res) {
+    var userList = User.find({}, function(err, data) {
+        if (err) throw err;
+        res.send(data)
+    });
+});
+
+router.get('/answer', (req, res) => {
+    res.render('answer');
+});
+
+router.get('/member', (req, res) => {
+    res.render('member');
+});
+
+router.get('/test', (req, res) => {
+    res.render('test');
+});
+
+router.get('/about', (req, res) => {
+    res.render('about');
+});
+
+// 
 router.post('/member', function(req, res) {
     var postData = {
         username: req.body.username,
@@ -40,9 +143,9 @@ router.post('/member', function(req, res) {
     User.findOne({
         username: postData.username,
         password: postData.password
-    }, function(err, data) {
+    }, function(err, user) {
         if (err) throw err;
-        if (data) {
+        if (user) {
             console.log('登錄成功');
             res.redirect('/');
         } else {
@@ -81,571 +184,6 @@ router.post('/member/sign-up', function(req, res) {
             })
         }
     });
-});
-
-router.get('/userList', function(req, res) {
-    var userList = User.find({}, function(err, data) {
-        if (err) throw err;
-        res.send(data)
-    });
-});
-
-router.post('/:where/:type', (req, res) => {
-    if (req.params.type === 'Chinese') {
-        // 接收國文答案
-        let Single = Object.values(req.body);
-        let singleStudent = [];
-        for (let i of Single) {
-            singleStudent.push(i);
-        };
-        // 單選
-        singleStudent = singleStudent.slice(0, 34);
-        // 多選
-        let Multiple0 = req.body.Chinese35;
-        let Multiple1 = req.body.Chinese36;
-        let Multiple2 = req.body.Chinese37;
-        let Multiple3 = req.body.Chinese38;
-        let Multiple4 = req.body.Chinese39;
-        let Multiple5 = req.body.Chinese40;
-        let Multiple6 = req.body.Chinese41;
-        let Multiple7 = req.body.Chinese42;
-        // 設定分數
-        let score = 0;
-        // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d531278d90e1d42ff2b4d0' }, function(err, objects) {
-            let Single = objects.Single;
-            let Multiple = objects.Multiple;
-            let singleDb = [];
-            let multipleDb = [];
-            // 單選
-            for (let i of Single) {
-                singleDb.push(i.answer);
-            };
-            // 多選
-            for (let i of Multiple) {
-                multipleDb.push(i);
-            };
-            // 對單選題
-            for (let i = 0; i < singleDb.length; i++) {
-                if (singleStudent[i] === singleDb[i]) {
-                    score += 2;
-                }
-            };
-            // 對多選35題
-            let count = 0;
-            if (Multiple0 !== undefined) {
-                if (JSON.stringify(Multiple0) === JSON.stringify(multipleDb[0])) {
-                    score += 4;
-                } else if (Multiple0.length > multipleDb[0].length) {
-                    for (let i = 0; i < Multiple0.length; i++) {
-                        if (multipleDb[0][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[0].length; i++) {
-                        if (Multiple0[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選36題
-            if (Multiple1 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple1) === JSON.stringify(multipleDb[1])) {
-                    score += 4;
-                } else if (Multiple1.length > multipleDb[1].length) {
-                    for (let i = 0; i < Multiple1.length; i++) {
-                        if (multipleDb[1][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[1].length; i++) {
-                        if (Multiple1[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選37題
-            if (Multiple2 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple2) === JSON.stringify(multipleDb[2])) {
-                    score += 4;
-                } else if (Multiple2.length > multipleDb[2].length) {
-                    for (let i = 0; i < Multiple2.length; i++) {
-                        if (multipleDb[2][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[2].length; i++) {
-                        if (Multiple2[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選38題
-            if (Multiple3 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple3) === JSON.stringify(multipleDb[3])) {
-                    score += 4;
-                } else if (Multiple3.length > multipleDb[3].length) {
-                    for (let i = 0; i < Multiple3.length; i++) {
-                        if (multipleDb[3][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[3].length; i++) {
-                        if (Multiple3[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選39題
-            if (Multiple4 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple4) === JSON.stringify(multipleDb[4])) {
-                    score += 4;
-                } else if (Multiple4.length > multipleDb[4].length) {
-                    for (let i = 0; i < Multiple4.length; i++) {
-                        if (multipleDb[4][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[4].length; i++) {
-                        if (Multiple0[4] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選40題
-            if (Multiple5 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple5) === JSON.stringify(multipleDb[5])) {
-                    score += 4;
-                } else if (Multiple5.length > multipleDb[5].length) {
-                    for (let i = 0; i < Multiple5.length; i++) {
-                        if (multipleDb[5][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[5].length; i++) {
-                        if (Multiple5[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選41題
-            if (Multiple6 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple6) === JSON.stringify(multipleDb[6])) {
-                    score += 4;
-                } else if (Multiple6.length > multipleDb[6].length) {
-                    for (let i = 0; i < Multiple6.length; i++) {
-                        if (multipleDb[6][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[6].length; i++) {
-                        if (Multiple6[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 對多選42題
-            if (Multiple7 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple7) === JSON.stringify(multipleDb[7])) {
-                    score += 4;
-                } else if (Multiple7.length > multipleDb[7].length) {
-                    for (let i = 0; i < Multiple7.length; i++) {
-                        if (multipleDb[7][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[7].length; i++) {
-                        if (Multiple7[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 2.4 : count === 2 ? score += 0.8 : score += 0;
-                }
-            }
-            // 成績存入資料庫
-            let object = req.params.type;
-            let grade = new Score({ score, object });
-            grade.save(function(err) {
-                if (err) {
-                    return res.status(500).json(err);
-                } else {
-                    return res.status(404).json();
-                }
-            });
-        });
-        res.redirect('/score');
-    };
-    if (req.params.type === 'English') {
-        // 接收英文答案
-        let arry = Object.values(req.body);
-        let singleStudent = [];
-        for (let i of arry) {
-            singleStudent.push(i);
-        };
-        // 設定分數
-        let score = 0;
-        // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d531697c0948050c0989f9' }, function(err, objects) {
-            let Single = objects.Single;
-            let singleDb = [];
-            // 單選
-            for (let i of Single) {
-                singleDb.push(i.answer);
-            };
-            // 對單選
-            for (let i = 0; i < singleDb.length; i++) {
-                if (singleStudent[i] === singleDb[i]) {
-                    score += 2;
-                }
-            };
-            // 成績存入資料庫
-            let object = req.params.type;
-            let grade = new Score({ score, object });
-            grade.save(function(err) {
-                if (err) {
-                    return res.status(500).json(err);
-                } else {
-                    return res.status(404).json();
-                }
-            });
-        });
-        res.redirect('/score');
-    };
-    if (req.params.type === 'Math') {
-        // 接收數學答案
-        let Single = Object.values(req.body);
-        let singleStudent = [];
-        for (let i of Single) {
-            singleStudent.push(i);
-        };
-        // 單選
-        singleStudent = singleStudent.slice(0, 6);
-        // 多選
-        let Multiple0 = req.body.Math7;
-        let Multiple1 = req.body.Math8;
-        let Multiple2 = req.body.Math9;
-        let Multiple3 = req.body.Math10;
-        let Multiple4 = req.body.Math11;
-        let Multiple5 = req.body.Math12;
-        let Multiple6 = req.body.Math13;
-        // 選填
-        let Optional14 = req.body.Math14;
-        let Optional15 = req.body.Math15;
-        let Optional16 = req.body.Math16;
-        let Optional17 = req.body.Math17;
-        let Optional18 = req.body.Math18;
-        let Optional19 = req.body.Math19;
-        let Optional20 = req.body.Math20;
-        let Optional21 = req.body.Math21;
-        let Optional22 = req.body.Math22;
-        let Optional23 = req.body.Math23;
-        let Optional24 = req.body.Math24;
-        let Optional25 = req.body.Math25;
-        let Optional26 = req.body.Math26;
-        let Optional27 = req.body.Math27;
-        let Optional28 = req.body.Math28;
-        let Optional29 = req.body.Math29;
-        let Optional30 = req.body.Math30;
-        let Optional31 = req.body.Math31;
-        let Optional32 = req.body.Math32;
-        let optionalA = [];
-        optionalA.push(Optional14, Optional15);
-        let optionalB = [];
-        optionalB = optionalB.push(Optional16, Optional17, Optional18);
-        let optionalC = [];
-        optionalC = optionalC.push(Optional19, Optional20, Optional21);
-        let optionalD = [];
-        optionalD = optionalD.push(Optional22, Optional23, Optional24);
-        let optionalE = [];
-        optionalE = optionalE.push(Optional25, Optional26, Optional27);
-        let optionalF = [];
-        optionalF = optionalF.push(Optional28, Optional29, Optional30);
-        let optionalG = [];
-        optionalG = optionalG.push(Optional31, Optional32);
-        // 設定分數
-        let score = 0;
-        // 拿取資料庫答案
-        Answer.findOne({ '_id': '6161d5317f8c1a51e40755702d' }, function(err, objects) {
-            let Single = objects.Single;
-            let Multiple = objects.Multiple;
-            let Optional = objects.Optional;
-            let singleDb = [];
-            let multipleDb = [];
-            let optionalDb = [];
-            // 單選
-            for (let i of Single) {
-                singleDb.push(i.answer);
-            };
-            // 多選
-            for (let i of Multiple) {
-                multipleDb.push(i);
-            };
-            // 選填
-            for (let i of Optional) {
-                optionalDb.push(i);
-            }
-            // 對單選
-            for (let i = 0; i < singleDb.length; i++) {
-                if (singleStudent[i] === singleDb[i]) {
-                    score += 5;
-                }
-            };
-            // 對多選7
-            let count = 0;
-            if (Multiple0 !== undefined) {
-                if (JSON.stringify(Multiple0) === JSON.stringify(multipleDb[0])) {
-                    score += 5;
-                } else if (Multiple0.length > multipleDb[0].length) {
-                    for (let i = 0; i < Multiple0.length; i++) {
-                        if (multipleDb[0][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[0].length; i++) {
-                        if (Multiple0[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選8
-            if (Multiple1 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple1) === JSON.stringify(multipleDb[1])) {
-                    score += 5;
-                } else if (Multiple1.length > multipleDb[1].length) {
-                    for (let i = 0; i < Multiple1.length; i++) {
-                        if (multipleDb[1][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[1].length; i++) {
-                        if (Multiple1[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選9
-            if (Multiple2 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple2) === JSON.stringify(multipleDb[2])) {
-                    score += 5;
-                } else if (Multiple2.length > multipleDb[2].length) {
-                    for (let i = 0; i < Multiple2.length; i++) {
-                        if (multipleDb[2][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[2].length; i++) {
-                        if (Multiple2[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選10
-            if (Multiple3 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple3) === JSON.stringify(multipleDb[3])) {
-                    score += 5;
-                } else if (Multiple3.length > multipleDb[3].length) {
-                    for (let i = 0; i < Multiple3.length; i++) {
-                        if (multipleDb[3][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[3].length; i++) {
-                        if (Multiple3[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選11
-            if (Multiple4 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple4) === JSON.stringify(multipleDb[4])) {
-                    score += 5;
-                } else if (Multiple4.length > multipleDb[4].length) {
-                    for (let i = 0; i < Multiple4.length; i++) {
-                        if (multipleDb[4][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[4].length; i++) {
-                        if (Multiple0[4] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選12
-            if (Multiple5 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple5) === JSON.stringify(multipleDb[5])) {
-                    score += 5;
-                } else if (Multiple5.length > multipleDb[5].length) {
-                    for (let i = 0; i < Multiple5.length; i++) {
-                        if (multipleDb[5][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[5].length; i++) {
-                        if (Multiple5[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對多選13
-            if (Multiple6 !== undefined) {
-                count = 0;
-                if (JSON.stringify(Multiple6) === JSON.stringify(multipleDb[6])) {
-                    score += 5;
-                } else if (Multiple6.length > multipleDb[6].length) {
-                    for (let i = 0; i < Multiple6.length; i++) {
-                        if (multipleDb[6][i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                } else {
-                    for (let i = 0; i < multipleDb[6].length; i++) {
-                        if (Multiple6[i] === undefined) {
-                            count++;
-                        }
-                    }
-                    count === 1 ? score += 3 : count === 2 ? score += 1 : score += 0;
-                }
-            }
-            // 對選填A
-            if (Optional14 !== undefined && Optional15 !== undefined) {
-                console.log(optionalDb[0], optionalA);
-                if (JSON.stringify(optionalDb[0] === JSON.stringify(optionalA))) {
-                    score += 5;
-                }
-            }
-            // // 對選填B
-            if (Optional16 !== undefined && Optional17 !== undefined && Optional18 !== undefined) {
-                if (JSON.stringify(optionalDb[1] === JSON.stringify(optionalB))) {
-                    score += 5;
-                }
-            }
-            // // 對選填C
-            if (Optional19 !== undefined && Optional20 !== undefined && Optional21 !== undefined) {
-                if (JSON.stringify(optionalDb[2] === JSON.stringify(optionalC))) {
-                    score += 5;
-                }
-            }
-            // // 對選填D
-            if (Optional22 !== undefined && Optional23 !== undefined && Optional24 !== undefined) {
-                if (JSON.stringify(optionalDb[3] === JSON.stringify(optionalD))) {
-                    score += 5;
-                }
-            }
-            // // 對選填E
-            if (Optional25 !== undefined && Optional26 !== undefined && Optional27 !== undefined) {
-                if (JSON.stringify(optionalDb[4] === JSON.stringify(optionalE))) {
-                    score += 5;
-                }
-            }
-            // // 對選填F
-            if (Optional28 !== undefined && Optional29 !== undefined && Optional30 !== undefined) {
-                if (JSON.stringify(optionalDb[5] === JSON.stringify(optionalF))) {
-                    score += 5;
-                }
-            }
-            // // 對選填G
-            if (Optional31 !== undefined && Optional32 !== undefined) {
-                if (JSON.stringify(optionalDb[6] === JSON.stringify(optionalG))) {
-                    score += 5;
-                }
-            }
-            // 成績存入資料庫
-            let object = req.params.type;
-            let grade = new Score({ score, object });
-            grade.save(function(err) {
-                if (err) {
-                    return res.status(500).json(err);
-                } else {
-                    return res.status(404).json();
-                }
-            });
-        });
-        res.redirect('/score');
-    };
-});
-
-router.get('/answer', (req, res) => {
-    res.render('answer');
-});
-
-router.get('/member', (req, res) => {
-    res.render('member');
-});
-
-router.get('/test', (req, res) => {
-    res.render('test');
-});
-
-router.get('/about', (req, res) => {
-    res.render('about');
 });
 
 module.exports = router;
