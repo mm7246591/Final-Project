@@ -118,7 +118,7 @@ router.get('/logout', (req, res) => {
     req.logOut();
     res.render('index', { status: status, title: title });
 })
-router.get('/:where/:type', (req, res) => {
+router.get('/:where/:type',isAuthenticated, (req, res) => {
     console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
         User.findById(req.session.passport.user, function(err, user) {
