@@ -407,10 +407,8 @@
     #about>h4{
         margin: 60px 0;
         padding: 20px 0;
-        /* text-align: center; */
+        text-align: center;
         border-left: #4aafaf 3px solid;
-
-       
     }
     #about>table{
         border-left: #4aafaf 3px solid; 
@@ -459,4 +457,11 @@
    .fs-3 {
         font-size: 22px!important;
         margin-top: 8px;
+    }
+    /* 成績顯示頁面 */
+    #score {
+        margin-top: -4rem;
+    }
+    #myCanvas {
+        margin-top: -5rem;
     }

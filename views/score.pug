@@ -5,9 +5,8 @@ block stylesheets
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js")
 block container
     .container.d-flex.flex-column.justify-content-around.align-items-center
-        //- h1 成績顯示頁面
-        h1 110學年度學科能力測驗 #{object}成績
-        h2#score #{title}分
+        h1 110學年度學科能力測驗#{object}成績
+        h2#score — #{title}分 —
         //- .d-flex.justify-content-center
         //-     h3#score= title
         canvas#myCanvas
@@ -21,7 +20,7 @@ block container
                     labels: [ "10", "20", "30", "40", "50", "60", "70", "80", "90", "100" ],
                     datasets: [{
                         data: [ #{num} ],
-                        label: '人數',
+                        label: '不同分數之人數級距分布圖',
                         backgroundColor: [
                             '#{barColor1}',
                             '#{barColor2}',
@@ -51,7 +50,7 @@ block container
                         //- text: "top 5 centros com mais projetos"
                     },
                     legend: {
-                        //- position: 'bottom'
+                        position: 'bottom'
                     }
                 }
             });
