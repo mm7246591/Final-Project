@@ -8,7 +8,7 @@ var scoreSchema = new mongoose.Schema({
         type: Number
     }
 });
-
+scoreSchema.set('collection','score');
 module.exports = mongoose.model('score', scoreSchema);
 
 // const scoreModel = mongoose.model('score', scoreSchema);

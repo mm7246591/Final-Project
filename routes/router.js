@@ -8,6 +8,13 @@ router.get('/', (req, res) => {
     res.render('index');
 })
 
+router.get('/score', (req, res) => {
+    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
+        if(err) throw err;
+        res.render('score', {title: data.score});
+    });
+});
+
 router.get('/:where/:type', (req, res) => {
     console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
@@ -105,7 +112,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61cbc5d8f91f428ddb58aff3' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d531278d90e1d42ff2b4d0' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let singleDb = [];
@@ -303,7 +310,7 @@ router.post('/:where/:type', (req, res) => {
                 }
             });
         });
-        res.redirect('/');
+        res.redirect('/score');
     };
     if (req.params.type === 'English') {
         // 接收英文答案
@@ -315,7 +322,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61c9d98695abd3f6e959e4c4' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d531697c0948050c0989f9' }, function(err, objects) {
             let Single = objects.Single;
             let singleDb = [];
             // 單選
@@ -339,7 +346,7 @@ router.post('/:where/:type', (req, res) => {
                 }
             });
         });
-        res.redirect('/');
+        res.redirect('/score');
     };
     if (req.params.type === 'Math') {
         // 接收數學答案
@@ -395,7 +402,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61cd353e9c0ef29b8f8ae276' }, function(err, objects) {
+        Answer.findOne({ '_id': '6161d5317f8c1a51e40755702d' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let Optional = objects.Optional;
@@ -621,7 +628,7 @@ router.post('/:where/:type', (req, res) => {
                 }
             });
         });
-        res.redirect('/');
+        res.redirect('/score');
     };
 });
 
@@ -639,18 +646,6 @@ router.get('/test', (req, res) => {
 
 router.get('/about', (req, res) => {
     res.render('about');
-});
-
-router.get('/score', (req, res) => {
-    console.log("Yaaaaaa");
-    res.render('score');
-    Score.findOne({
-        type: req.query.type,
-        score: req.query.score
-    }, function(err, data){
-        if(err) throw err;
-        else res.json(data);
-    })
 });
 
 module.exports = router;

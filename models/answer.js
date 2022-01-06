@@ -14,5 +14,5 @@ let dataSchema = mongoose.Schema({
         type: Array
     }
 });
-
+dataSchema.set('collection','objects');
 let objects = module.exports = mongoose.model('objects', dataSchema)
