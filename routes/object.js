@@ -17,7 +17,6 @@ router.get('/score', (req, res) => {
         let barColor8 = 'rgba(54, 162, 235, 0.5)';
         let barColor9 = 'rgba(54, 162, 235, 0.5)';
         let barColor10 = 'rgba(54, 162, 235, 0.5)';
-        // let mycolor = parseInt(data.score/10);
         let num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let object;
         switch(parseInt(data.score/10))
