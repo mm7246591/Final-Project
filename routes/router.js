@@ -7,14 +7,15 @@ const bcrypt = require('bcrypt');
 const LocalStrategy =require('passport-local').Strategy;
 const router = express.Router();
 const User = require('../models/users');
-
+var status=false;
+var title;
 //檢查有沒有登入
-// const isAuthenticated =(req,res,next)=>{
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     res.redirect('/member');
-// }
+const isAuthenticated =(req,res,next)=>{
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/member');
+}
 router.use(flash());
 router.use(session({
     secret: process.env.session_secret, 
@@ -29,8 +30,12 @@ router.use(passport.session());
 
 router.get('/member/sign-up', (req, res) => {
     console.log('訪問註冊');
+    // console.log(req.session);
+    // console.log(req.sessionID);
     res.render('member/sign-up', {
         // title: 'Register'
+        status:status,
+        title:title
     });
 });
 
@@ -39,7 +44,7 @@ router.post('/member/sign-up',passport.authenticate('register', {
     failureRedirect:'/member/sign-up',
     failureFlash:true
 }),(req,res)=>{
-    // res.redirect('/login');
+    res.render('member',{status:status,title:title});
 });
 
 router.post('/member/sign-up',(req,res,next)=>{
@@ -67,9 +72,21 @@ router.get('/member', (req, res) => {
     console.log('訪問登入');
     res.render('member', {
         // title: 'Login'
+        status:status,
+        title:title
     });
 });
-
+router.post('/member', passport.authenticate('local',{
+    // successRedirect: '/',
+    failureRedirect:'/member',
+    failureFlash:true
+}),(req,res)=>{
+    console.log('登錄成功');
+    // console.log(req.user.name);
+    status=true;
+    title=req.user.name;
+    res.render('index',{title:req.user.name,status:status});
+});
 router.post('/member',function(req, res) {
     var postData = {
         username: req.body.username,
@@ -82,18 +99,27 @@ router.post('/member',function(req, res) {
         console.log(data.password);
         if(bcrypt.compare(req.body.password,data.password)){
             console.log('登錄成功');
-            res.render('index',{title:data.name,status:true});
+            status=true;
+            title=data.name;
+            const name=data.name;
+            const password=data.password;
+            res.render('index',{title:title,status:status});
         }
         else{
             console.log('登錄失敗');
-            res.render('member',{errorusername:'帳號或密碼錯誤'});
+            res.render('member',{errorusername:'帳號或密碼錯誤',status:status,title:title});
         }
     })
 });
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('index',{status:status,title:title});
 })
-
+router.get('/logout', (req, res) => {
+    status=false;
+    title='';
+    req.logOut();
+    res.render('index',{status:status,title:title});
+})
 router.get('/:where/:type', (req, res) => {
     console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
@@ -101,13 +127,17 @@ router.get('/:where/:type', (req, res) => {
             if (err) {
                 console.log(err);
             } else {
+                console.log(user)
+                console.log(req.sessionID)
                 res.render(`${req.params.where}/${req.params.type}`, {
-                    user: user[0]
+                    user: req.sessionID,
+                    status:status,
+                    title:title
                 })
             }
         })
     } else {
-        res.render(`${req.params.where}/${req.params.type}`);
+        res.render(`${req.params.where}/${req.params.type}`,{status:status,title:title});
     }
 });
 
@@ -119,19 +149,19 @@ router.get('/userList', function(req, res) {
 });
 
 router.get('/answer', (req, res) => {
-    res.render('answer');
+    res.render('answer',{status:status,title:title});
 });
 
 router.get('/member', (req, res) => {
-    res.render('member');
+    res.render('member',{status:status,title:title});
 });
 
-router.get('/test', (req, res) => {
-    res.render('test');
+router.get('/test',isAuthenticated, (req, res) => {
+    res.render('test',{status:status,title:title});
 });
 
 router.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about',{status:status,title:title});
 });
 
 // 
@@ -147,10 +177,10 @@ router.post('/member', function(req, res) {
         if (err) throw err;
         if (user) {
             console.log('登錄成功');
-            res.redirect('/');
+            res.render('index',{status:status,title:title});
         } else {
             console.log('賬號或密碼錯誤');
-            res.redirect('/member');
+            res.render('member',{status:status,title:title});
         }
     })
 });
@@ -179,7 +209,7 @@ router.post('/member/sign-up', function(req, res) {
             User.create(postData, function(err, data) {
                 if (err) throw err;
                 console.log('註冊成功');
-                res.redirect('/member');
+                res.render('member',{status:status,title:title});
                 // res.redirect('/userList');      // 重定向到所用用戶列表
             })
         }

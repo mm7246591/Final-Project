@@ -4,16 +4,29 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     username: {
         type: String,
-        unique: true
+        unique: true,
+        required:true
     },
     password: {
-        type: String
+        type: String,
+        required:true
     },
-    name: String,
-    age: Number,
-    gender: String,
-    grade: Number,
-    mail: String,
+    name:{
+        type:String,
+        required:true
+    },
+    gender:{
+        type:String,
+        required:true
+    },
+    grade:{
+        type:Number,
+        required:true
+    },  
+    mail:{
+        type:String,
+        required:true
+    },  
     createAt: {
         type: Date,
         default: Date.now()
