@@ -4,6 +4,36 @@ const Score = require('../models/score');
 const Answer = require('../models/answer');
 const User = require('../models/users')
 
+router.get('/score', (req, res) => {
+    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
+        if(err) throw err;
+        let barColor = [
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+        ];
+        barColor[1] = 'rgba(255, 99, 133, 0.5)';
+        let num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        Score.find({object: data.object}, function(err, allData){
+            if(err) throw err;
+            for(let i=0; i<allData.length; i++) {
+                let x =parseInt(allData[i].score/10);
+                if(x!=0) num[x-1] += 1;
+                else num[x] += 1;
+                // console.log(x);
+            }
+            res.render('score', {title: data.score, num: num, barColor: barColor[1]});
+        });
+    });
+});
+
 router.post('/:where/:type', (req, res) => {
     if (req.params.type === 'sign-in') {
         let user = {};
@@ -43,7 +73,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d593f3ed5a46a9dc5e2005' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d6840828c3001b6974c14e' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let singleDb = [];
@@ -253,7 +283,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d593fdad5b81bb424a0c2b' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d68415d31ee6a8dd01e4e4' }, function(err, objects) {
             let Single = objects.Single;
             let singleDb = [];
             // 單選
@@ -333,7 +363,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d594039ca7831834c7a6b0' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d6841ab376df0dad029ca6' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let Optional = objects.Optional;
@@ -561,11 +591,5 @@ router.post('/:where/:type', (req, res) => {
         });
         res.redirect('/score');
     };
-});
-router.get('/score', (req, res) => {
-    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
-        if(err) throw err;
-        res.render('score', {title: data.score});
-    });
 });
 module.exports = router;

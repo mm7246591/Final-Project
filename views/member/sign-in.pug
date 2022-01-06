@@ -20,22 +20,22 @@ block container
                     .col-3.fs-3
                         label.form-label(for='inputAddress') 姓名
                     .col-6.mt-1
-                        input#inputname.form-control(type='text' required='' name="name" onchange="value=value.replace(/[^\一-\龥]/g,'')"  value=`${user.name}`)
+                        input#inputname.form-control(type='text' required='' name="name" onkeyup="value=value.replace(/[^\\一-\\龥]/g,'')"  value=`${user.name}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-check-label(for='gridCheck') 性別
                     .col-6.mt-1
-                        input#input.form-control(type='text' placeholder='' required='' name="gender" onkeyup="value=value.replace(/[^\d]/g,'')"  value=`${user.gender}`) 
+                        input#input.form-control(type='text' placeholder='' required='' name="gender" value=`${user.gender}`) 
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 年齡
                     .col-6.mt-1
-                        input#inputage.form-control(type='text' placeholder='' required='' name="age" onkeyup="value=value.replace(/[^\d]/g,'')" value=`${user.age}`)
+                        input#inputage.form-control(type='text' placeholder='' required='' name="age" onkeyup="value=value.replace(/[^\\d]/g,'')" value=`${user.age}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 年級
                     .col-6.mt-1
-                        input#inputgrade.form-control(type='text' placeholder='' required='' name="grade" onkeyup="value=value.replace(/[^\d]/g,'')" value=`${user.grade}`)
+                        input#inputgrade.form-control(type='text' placeholder='' required='' name="grade" onkeyup="value=value.replace(/[^\\d]/g,'')" value=`${user.grade}`)
                 .row.mt-5
                     .col-3.fs-3
                         label.form-label(for='inputAddress2') 電子郵件
