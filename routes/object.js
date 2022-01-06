@@ -3,6 +3,7 @@ const router = express.Router();
 const Score = require('../models/score');
 const Answer = require('../models/answer');
 const User = require('../models/users')
+
 router.post('/:where/:type', (req, res) => {
     if (req.params.type === 'sign-in') {
         let user = {};
@@ -562,6 +563,9 @@ router.post('/:where/:type', (req, res) => {
     };
 });
 router.get('/score', (req, res) => {
-    res.render('score');
+    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
+        if(err) throw err;
+        res.render('score', {title: data.score});
+    });
 });
 module.exports = router;
