@@ -2,7 +2,7 @@ extends layout
 block stylesheets
 block container 
     .container.d-flex.justify-content-center.align-items-center
-        .d-flex.flex-column.logIn
+        .d-flex.flex-column.logIn.justify-content-center
             form.d-flex.flex-column.justify-content-center.align-items-center(action='/member' method='POST')
                 h2.fs-3.my-1 會員登入
                 .account
@@ -11,10 +11,13 @@ block container
                 .password
                     label.fs-5(for='password') 密碼
                     input#password.my-2(type='text' name="password")
+                if typeof messages !='undefined'
+                    if messages.error   
+                        .alert.alert-danger.alert-dismissible.fade.show(role="alert")
+                           p 錯誤訊息#{messages.error}
                 .btn.my-2
                     input(type='submit' value='登入')
                     input(type='button' value='取消')
-                p #{errorusername}
             .text.text-center
                 span
                     | 還沒註冊嗎? 
