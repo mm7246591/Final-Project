@@ -5,28 +5,32 @@ var userSchema = new Schema({
     username: {
         type: String,
         unique: true,
-        required:true
+        required: true
     },
     password: {
         type: String,
-        required:true
+        required: true
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    gender:{
-        type:String,
-        required:true
+    gender: {
+        type: String,
+        required: true
     },
-    grade:{
-        type:Number,
-        required:true
-    },  
-    mail:{
-        type:String,
-        required:true
-    },  
+    age: {
+        type: Number,
+        required: true
+    },
+    grade: {
+        type: Number,
+        required: true
+    },
+    mail: {
+        type: String,
+        required: true
+    },
     createAt: {
         type: Date,
         default: Date.now()
