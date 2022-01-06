@@ -7,6 +7,10 @@ block container
                 .col-12
                     label.form-label(for='username') 帳號
                     input#usernmae.form-control(type='text' size='30' name="username")
+                    if typeof messages != 'undefined'
+                        if messages.error
+                            .alert.alert-warning.alert-dismissible.fade.show(role="alert")
+                                strong= messages.error
                 .col-md-6
                     label.form-label(for='password') 密碼
                     #errPW.help-block.with-errors.invalid

@@ -1,7 +1,39 @@
-extends layout
+doctype html
+html
+  head
+    link(href='/bootstrap-5.0.2-dist/css/bootstrap.min.css' rel='stylesheet')
+    link(href='/css/style.css' rel='stylesheet')
+    script(src="/javascripts/jquery-3.6.0.js")
+    script(src='/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js')
+    Title 學測考生線上測驗平台
+    block stylesheets
+  body(style="background:#2d3e62cf;")
+   header
+    #nav.d-flex.justify-content-around.align-items-center
+        .fs-1.title
+            a(href='/') 學測測驗平台
+        ul.nav.justify-content-center.fs-5
+          li.nav-item
+            a.nav-link.active.link-dark(aria-current='page' href='/about') 關於我們
+          li.nav-item
+            a.nav-link.link-dark(href='/test' tabindex='-1' aria-disabled='true') 開始考試
+          li.nav-item
+            a.nav-link.link-dark(href='/answer') 歷屆解答
+          if status==true 
+            li.nav-item
+              a.nav-link.link-dark(href='/member/sign-in') #{title}
+            li.nav-item
+              a.nav-link.link-dark(href='/') 登出
+          else
+            li.nav-item
+              a.nav-link.link-dark(href='/member') 會員登入
 block container 
     .container.d-flex.justify-content-center.align-items-top.mt-5
         #about.d-flex.flex-column.p-5.align-items-center(style="border-collapse:collapse;")
+            h1 設計動機
+            h4     之前準備學測要找歷屆試題時，如果不想買厚厚的題本就要上網逐年搜尋單科試題，而且對答案的解答及詳解還要額外查詢，覺得十分不便。因此我們期望設計出一款方便考生線上練習學測題目的網站，本網站統整國、英、數三科近三年的考題及解答、詳解，方便考生利用。
+            h1 目的
+            h4     為了讓考生不在需要買許多題本，不僅可以環保，也可以減輕學生背包的負擔，讓學生隨時隨地都能夠測驗。
             h1 關於我們
             table.table
                 tbody

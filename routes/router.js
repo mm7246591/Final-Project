@@ -1,7 +1,95 @@
 const express = require('express');
+var session = require('express-session');
+const flash = require('express-flash');
+const MongoStore = require('connect-mongo'); 
+const passport =require('../passport_conf');
+const bcrypt = require('bcrypt');
+const LocalStrategy =require('passport-local').Strategy;
 const router = express.Router();
 const User = require('../models/users');
 
+//檢查有沒有登入
+// const isAuthenticated =(req,res,next)=>{
+//     if(req.isAuthenticated()){
+//         return next();
+//     }
+//     res.redirect('/member');
+// }
+router.use(flash());
+router.use(session({
+    secret: process.env.session_secret, 
+    store:MongoStore.create({mongoUrl:process.env.databaseUrl,ttl:60}),
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+  }));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+router.get('/member/sign-up', (req, res) => {
+    console.log('訪問註冊');
+    res.render('member/sign-up', {
+        // title: 'Register'
+    });
+});
+
+router.post('/member/sign-up',passport.authenticate('register', {
+    successRedirect: '/member',
+    failureRedirect:'/member/sign-up',
+    failureFlash:true
+}),(req,res)=>{
+    // res.redirect('/login');
+});
+
+router.post('/member/sign-up',(req,res,next)=>{
+    const { 
+        username,
+        email,
+        password
+    }= req.body;
+    const errors=[];
+    if(!username || !email || !password){
+        errors.push({
+            msg:'請填寫欄位資料'
+        });
+    }
+    else{
+        console.log('進入authenticate register')
+        passport.authenticate('register',{
+            successRedirect: '/member',
+            failureRedirect:'/member/sign-up',
+            failureFlash:true
+        })(req,res,next);
+    }
+});
+router.get('/member', (req, res) => {
+    console.log('訪問登入');
+    res.render('member', {
+        // title: 'Login'
+    });
+});
+
+router.post('/member',function(req, res) {
+    var postData = {
+        username: req.body.username,
+        password: req.body.password
+    };
+    User.findOne({
+        username: postData.username,
+    }, function(err, data) {
+        console.log(req.body.password);
+        console.log(data.password);
+        if(bcrypt.compare(req.body.password,data.password)){
+            console.log('登錄成功');
+            res.render('index',{title:data.name,status:true});
+        }
+        else{
+            console.log('登錄失敗');
+            res.render('member',{errorusername:'帳號或密碼錯誤'});
+        }
+    })
+});
 router.get('/', (req, res) => {
     res.render('index');
 })
@@ -22,7 +110,31 @@ router.get('/:where/:type', (req, res) => {
         res.render(`${req.params.where}/${req.params.type}`);
     }
 });
-// 這裡的業務邏輯將寫在 兩個post路由裡！！！
+
+router.get('/userList', function(req, res) {
+    var userList = User.find({}, function(err, data) {
+        if (err) throw err;
+        res.send(data)
+    });
+});
+
+router.get('/answer', (req, res) => {
+    res.render('answer');
+});
+
+router.get('/member', (req, res) => {
+    res.render('member');
+});
+
+router.get('/test', (req, res) => {
+    res.render('test');
+});
+
+router.get('/about', (req, res) => {
+    res.render('about');
+});
+
+// 
 router.post('/member', function(req, res) {
     var postData = {
         username: req.body.username,
@@ -73,29 +185,5 @@ router.post('/member/sign-up', function(req, res) {
         }
     });
 });
-
-router.get('/userList', function(req, res) {
-    var userList = User.find({}, function(err, data) {
-        if (err) throw err;
-        res.send(data)
-    });
-});
-
-router.get('/answer', (req, res) => {
-    res.render('answer');
-});
-
-router.get('/member', (req, res) => {
-    res.render('member');
-});
-
-router.get('/test', (req, res) => {
-    res.render('test');
-});
-
-router.get('/about', (req, res) => {
-    res.render('about');
-});
-
 
 module.exports = router;

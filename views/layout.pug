@@ -19,7 +19,14 @@ html
             a.nav-link.link-dark(href='/test' tabindex='-1' aria-disabled='true') 開始考試
           li.nav-item
             a.nav-link.link-dark(href='/answer') 歷屆解答
-          li.nav-item
-            a.nav-link.link-dark(href='/member') 會員登入
+          if status==true 
+            li.nav-item
+              a.nav-link.link-dark(href='/member/sign-in') #{title}
+            li.nav-item
+              a.nav-link.link-dark(href='/') 登出
+          else
+            li.nav-item
+              a.nav-link.link-dark(href='/member') 會員登入
+
     block container 
     block javascript
