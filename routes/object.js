@@ -5,8 +5,8 @@ const Answer = require('../models/answer');
 const User = require('../models/users')
 
 router.get('/score', (req, res) => {
-    Score.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, data) {
-        if(err) throw err;
+    Score.findOne({}, {}, { sort: { '_id': -1 } }, function(err, data) {
+        if (err) throw err;
         let barColor1 = 'rgba(54, 162, 235, 0.5)';
         let barColor2 = 'rgba(54, 162, 235, 0.5)';
         let barColor3 = 'rgba(54, 162, 235, 0.5)';
@@ -19,63 +19,61 @@ router.get('/score', (req, res) => {
         let barColor10 = 'rgba(54, 162, 235, 0.5)';
         let num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let object;
-        switch(parseInt(data.score/10))
-        {
+        switch (parseInt(data.score / 10)) {
             case 1:
-            {
-                barColor1 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor1 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 2:
-            {
-                barColor2 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor2 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 3:
-            {
-                barColor3 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor3 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 4:
-            {
-                barColor4 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor4 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 5:
-            {
-                barColor5 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor5 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 6:
-            {
-                barColor6 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor6 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 7:
-            {
-                barColor7 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor7 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 8:
-            {
-                barColor8 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor8 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 9:
-            {
-                barColor9 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor9 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             case 10:
-            {
-                barColor10 = 'rgba(255, 99, 133, 0.5)';
-                break;
-            }
+                {
+                    barColor10 = 'rgba(255, 99, 133, 0.5)';
+                    break;
+                }
             default:
                 barColor1 = 'rgba(255, 99, 133, 0.5)';
         }
-        switch(data.object)
-        {
+        switch (data.object) {
             case "Chinese":
                 object = "國文";
                 break;
@@ -85,18 +83,18 @@ router.get('/score', (req, res) => {
             case "Math":
                 object = "數學";
                 break;
-            }
-        Score.find({object: data.object}, function(err, allData){
-            if(err) throw err;
-            for(let i=0; i<allData.length; i++) {
-                let x =parseInt(allData[i].score/10);
-                if(x!=0) num[x-1] += 1;
+        }
+        Score.find({ object: data.object }, function(err, allData) {
+            if (err) throw err;
+            for (let i = 0; i < allData.length; i++) {
+                let x = parseInt(allData[i].score / 10);
+                if (x != 0) num[x - 1] += 1;
                 else num[x] += 1;
             }
             res.render('score', {
                 title: data.score,
                 object: object,
-                num: num, 
+                num: num,
                 barColor1: barColor1,
                 barColor2: barColor2,
                 barColor3: barColor3,
@@ -122,7 +120,8 @@ router.post('/:where/:type', (req, res) => {
         user.age = req.body.age;
         user.grade = req.body.grade;
         user.mail = req.body.mail;
-        User.updateOne(user, function(err) {
+        let _id = { _id: req.session.passport.user };
+        User.updateOne(_id, user, function(err) {
             if (err) {
                 console.log(err)
             } else {
