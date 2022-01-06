@@ -1,15 +1,24 @@
 //require -> 引入模組
 var createError = require('http-errors');
 var express = require('express');
+const MongoStore = require('connect-mongo'); 
 var path = require('path');
+const passport = require('passport');
 var cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const flash = require('express-flash');
+var session = require('express-session');
 var logger = require('morgan'); //用來記錄HTTP相關的請求
-
+require('dotenv').config();
 var router = require('./routes/router');
 var objectRouter = require('./routes/object');
+
 //將mongoose套件引入, connection using mongoose
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/blog');
+mongoose.connect(process.env.databaseUrl,{
+    useNewUrlParser:true,
+    useUnifiedTopology:true
+});
 var db = mongoose.connection;
 var bodyParser = require('body-parser');
 
@@ -43,7 +52,9 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
+app.use(express.urlencoded({
+    extended: false
+}));
 // 連接成功
 db.on('open', function() {
     console.log('MongoDB Connection Successed');
