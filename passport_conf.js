@@ -7,6 +7,7 @@ const flash = require('express-flash');
         done(null,user.id)
     });
     passport.deserializeUser(async(id,done)=>{
+        console.log(id)
         try{
             let user= await User.findById(id);
             if(user){
@@ -59,28 +60,43 @@ const registerStrategy = new LocalStrategy({
 passport.use('register',registerStrategy);
 
 const getUserEmail = username => User.find(user => user.username === username);
-const authenticatrUser=async(req,email,password,done) =>{
-        console.log('authenticatrUser');
-        const user =getUserEmail(email);
-        // console.log(user);
+const authenticatrUser=async(req,username,password,done) =>{
+    console.log('authenticatrUser');
+    console.log(req.body.email);
+    console.log('password:'+password);
+    console.log('username:'+username);
+    User.findOne({
+        username:username
+    },async(err,user)=>{
         try{
             if(await bcrypt.compare(password,user.password)){
-                console.log('true');
+                console.log(user);
                 return done(null,user,{
                     message:'歡迎光臨'
                 })
             }else{
-                console.log('false');
                 return done(null,false,{
                     message:'密碼錯誤'
                 })
             }
         }catch(e){
-            console.log(e);
             return done(e);
     
         }
-    };
+        if(err){
+            return done(err);
+        }
+        if(user){
+            console.log(user);
+            console.log('此電子信箱已經有人使用');
+            return done(null,false,req.flash('error','此電子信箱已經有人使用'));
+        }else{
+            console.log('註冊成功');
+                return done(null,user,req.flash('success','註冊成功'));
+        }
+    });
+    
+};
     passport.use(new LocalStrategy({
         usernameField:'username',
         passReqToCallback:true

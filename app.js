@@ -10,6 +10,7 @@ const flash = require('express-flash');
 var session = require('express-session');
 var logger = require('morgan'); //用來記錄HTTP相關的請求
 require('dotenv').config();
+
 var router = require('./routes/router');
 var objectRouter = require('./routes/object');
 
