@@ -6,7 +6,8 @@ block stylesheets
 block container
     .container.d-flex.flex-column.justify-content-around.align-items-center
         //- h1 成績顯示頁面
-        h1#score= title
+        h1 110學年度學科能力測驗 #{object}成績
+        h2#score #{title}分
         //- .d-flex.justify-content-center
         //-     h3#score= title
         canvas#myCanvas
@@ -21,7 +22,18 @@ block container
                     datasets: [{
                         data: [ #{num} ],
                         label: '人數',
-                        backgroundColor: '#{barColor}',
+                        backgroundColor: [
+                            '#{barColor1}',
+                            '#{barColor2}',
+                            '#{barColor3}',
+                            '#{barColor4}',
+                            '#{barColor5}',
+                            '#{barColor6}',
+                            '#{barColor7}',
+                            '#{barColor8}',
+                            '#{barColor9}',
+                            '#{barColor10}',
+                        ],
                     }]
                 },
                 options: {
@@ -30,7 +42,7 @@ block container
                             ticks: {
                                 stepSize: 3,
                                 min: 0,
-                                max: 15
+                                max: 9
                             }
                         }]
                     },
