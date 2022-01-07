@@ -8,10 +8,10 @@ block container
                     tr
                         td
                             .row
-                                p.fs-2 王小明
+                                p.fs-2 #{title}
                                 table.table.table-striped.fs-3.table-dark
                                     tbody
-                                        tr
+                                        tr#here
                                             th(scope='col') 
                                             th(scope='col') 年份
                                             th(scope='col') 科別
@@ -19,12 +19,63 @@ block container
                                         tr
                                             th(scope='row') 1
                                             td 110
-                                            td 國文
-                                            td 60
+                                            td #{data1.object}
+                                            td #{data1.score}
                                         tr
                                             th(scope='row') 2
                                             td 110
-                                            td 英文
-                                            td 70
-block javascript 
+                                            td #{data2.object}
+                                            td #{data2.score}
+                                        tr
+                                            th(scope='row') 3
+                                            td 110
+                                            td #{data3.object}
+                                            td #{data3.score}
+                                        tr
+                                            th(scope='row') 4
+                                            td 110
+                                            td #{data4.object}
+                                            td #{data4.score}
+                                        tr
+                                            th(scope='row') 5
+                                            td 110
+                                            td #{data5.object}
+                                            td #{data5.score}
+                                        tr
+                                            th(scope='row') 6
+                                            td 110
+                                            td #{data6.object}
+                                            td #{data6.score}
+                                        tr
+                                            th(scope='row') 7
+                                            td 110
+                                            td #{data7.object}
+                                            td #{data7.score}
+                                        tr
+                                            th(scope='row') 8
+                                            td 110
+                                            td #{data8.object}
+                                            td #{data8.score}
+                                        tr
+                                            th(scope='row') 9
+                                            td 110
+                                            td #{data9.object}
+                                            td #{data9.score}
+                                        tr
+                                            th(scope='row') 10
+                                            td 110
+                                            td #{data10.object}
+                                            td #{data10.score}
+                                        //- script.
+                                        //-     let th ='';
+                                        //-     for(let i= 1; i<=10; i++){
+                                        //-         th += `<tr>
+                                        //-         <th scope="row">${i}</th>
+                                        //-         <td>110</td>
+                                        //-         <td>#{data${i}.object}</td>
+                                        //-         <td>#{data${i}.score}</td>
+                                        //-         </tr>`
+                                        //-     }
+                                        //-     $("#here").after(th);
+block javascript
     script(src='/javascripts/script.js')

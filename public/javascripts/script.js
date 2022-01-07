@@ -13,6 +13,7 @@
             const obj = $("#sel_obj").val();
             if (year !== "選擇年份" && obj !== "選擇科目")
                 $("#home-form>.button").show();
+            else $("#home-form>.button").hide();
         });
         //選擇年份跟科目
         $(".button").click(function() {
@@ -28,10 +29,6 @@
                     $("#home-form").attr("action", "/quize/Math");
                     break;
             }
-        });
-        //答案卡顯示  
-        $(".content").hover(function() {
-            $(".content").toggleClass("toggle")
         });
         //國文答案格
         for (let i = 1; i <= 42; i++) {
