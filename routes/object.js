@@ -3,7 +3,7 @@ const router = express.Router();
 const Score = require('../models/score');
 const Answer = require('../models/answer');
 const User = require('../models/users')
-//session
+    //session
 const MongoStore = require('connect-mongo');
 var session = require('express-session');
 const flash = require('express-flash');
@@ -107,10 +107,9 @@ router.get('/score', (req, res) => {
                 else num[x] += 1;
             }
             User.findById(req.session.passport.user, function(err, user) {
-                res.render('score', 
-                {
+                res.render('score', {
                     title: user.name,
-                    status:true,
+                    status: true,
                     score: data.score,
                     object: object,
                     num: num,
@@ -460,7 +459,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d6841ab376df0dad029ca6' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d6bfd5d91553782a09f47f' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let Optional = objects.Optional;

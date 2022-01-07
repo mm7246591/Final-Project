@@ -134,27 +134,19 @@ router.get('/:where/:type', isAuthenticated, (req, res) => {
                 })
             }
         })
-    } else if(req.params.where === 'member' && req.params.type === 'score'){
+    } else if (req.params.where === 'member' && req.params.type === 'score') {
         User.findById(req.session.passport.user, function(err, user) {
             if (err) console.log(err);
             else {
-                Score.find({}, {}, { sort: { '_id': -1 }, limit: 10}, function(err, data) {
+                Score.find({}, function(err, score) {
+                    console.log(score)
                     if (err) throw err;
-                        res.render(`${req.params.where}/${req.params.type}`, {
-                            data1: data[0],
-                            data2: data[1],
-                            data3: data[2],
-                            data4: data[3],
-                            data5: data[4],
-                            data6: data[5],
-                            data7: data[6],
-                            data8: data[7],
-                            data9: data[8],
-                            data10: data[9],
-                            status: status,
-                            title: title
-                        });
-                })
+                    res.render(`${req.params.where}/${req.params.type}`, {
+                        score: score,
+                        status: status,
+                        title: title
+                    });
+                }).sort({ _id: -1 }).limit(10)
             }
         })
     } else {
