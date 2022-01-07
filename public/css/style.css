@@ -20,6 +20,7 @@
         position: relative;
         color: red;
     }
+    
     header .title>a::after {
         content: '';
         position: absolute;
@@ -40,63 +41,72 @@
     header>#nav {
         height: 100%;
     }
+    
     .container {
         width: 100%;
         height: 807px;
     }
+    
     .container-filud {
         width: 100%;
         height: 807px;
         padding: 0 50px;
     }
+    
     .form-select {
         width: 150px;
         margin: 0 5px;
     }
-    .test{
+    
+    .test {
         border: 10px groove rgb(255, 127, 110);
         width: 800px;
         height: 600px;
         border-radius: 40px;
         background-color: rgba(255, 255, 255, 0.734);
-        box-shadow:12px 12px 7px rgb(12, 0, 0);
+        box-shadow: 12px 12px 7px rgb(12, 0, 0);
     }
-    .test>h1{
+    
+    .test>h1 {
         font-size: 50px;
-       margin: 0 0 50px 0;
-       font-weight: bold;
+        margin: 0 0 50px 0;
+        font-weight: bold;
     }
-    .role{
+    
+    .role {
         margin: 0 0 50px 0;
     }
-    .role > p{
+    
+    .role>p {
         text-align: left;
         font-size: 22px;
         margin: 0 0 20px 0;
-     }
+    }
+    
     .icon img {
         width: 50px;
         height: 50px;
         margin: 0 7px;
     }
-
     /* 首頁 */
     
     #home-form>.button {
         display: none;
     }
-    .card{
-        box-shadow:12px 12px 7px rgba(19, 16, 0, 0.789);
+    
+    .card {
+        box-shadow: 12px 12px 7px rgba(19, 16, 0, 0.789);
         margin: 0px 25px 0 10px;
         justify-content: space-around;
     }
-    .card:hover{
+    
+    .card:hover {
         transform: scale(1.05);
     }
-    a>.btn{
+    
+    a>.btn {
         transform: scale(1.5);
     }
-
     /* 會員 */
     
     #member-form {
@@ -174,7 +184,6 @@
     .logIn .btn input {
         margin: 0 10px;
     }
-
     /* 歷年選擇 */
     
     .folder {
@@ -227,7 +236,7 @@
     #submit {
         border-radius: revert;
     }
-
+    
     .time {
         width: 300px;
     }
@@ -244,37 +253,36 @@
         margin: 0 50px;
         background-color: rgba(255, 255, 255, .9);
         text-align: left;
+        position: absolute;
+        right: 35%;
     }
-    #question-form td{
-        border:1px black solid;
+    
+    #question-form td {
+        border: 1px black solid;
     }
+    
     #question-form span {
         margin: 10px 0;
     }
     
     .content {
-        /* width: 400px;
-        border: 2px dashed red;*/
-         background-color: rgba(255, 255, 255, .9); 
+        background-color: rgba(255, 255, 255, .9);
         width: 650px;
-        border:5px groove #c30606;
+        height: 700px;
+        border: 5px groove #c30606;
         border-radius: 10px;
-    }
-    
-    .toggle {
-        opacity: 100;
-        transition: .3s;
+        position: fixed;
+        top: 25%;
+        right: 0;
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
     
     #answer-form {
-        /* width: 350px;
-        border: 1px double red; */
         width: 650px;
     }
     
     #answer-form .letter {
-        /* width: 330px;
-        margin-left: 18px; */
         width: 600px;
         margin-left: 11px;
         border-bottom: 1px solid red;
@@ -282,52 +290,37 @@
     
     .Chinese .letter p {
         margin: 0 10px;
-        /* margin: auto; */
         font-size: 16px;
     }
     
     .Chinese label {
         width: 215px;
-        /* width: 350px;
-  
-        line-height: 20px; */
         margin: 8px 0;
         text-align: center;
     }
     
     .Chinese label>input {
         width: 15px;
-        /* width: 25px;
-        height: 25px; */
         margin: 0 6px;
     }
     
     .English .letter p {
-        /* margin: auto;
-        font-size: 20px; */
         margin: 0 0px 0 16px;
         font-size: 16px;
     }
     
     .English label {
-        /* width: 350px; */
         width: 325px;
-        /* margin: 10px 0;
-        line-height: 20px; */
         text-align: center;
     }
     
     .English label>input {
-        /* width: 20px;
-        height: 20px;
-        margin: 0 4px; */
         width: 12px;
         margin: 0 5px;
     }
     
     .Math .letter p {
         margin: 0 0 0 13px;
-        /* font-size: 20px; */
     }
     
     .Math label {
@@ -338,33 +331,39 @@
     }
     
     .Math label>input {
-        /* width: 18px;
-        height: 18px; */
         margin: 0 2.5px;
     }
-    .Mathcontent>table{
+    
+    .Mathcontent>table {
         border-collapse: collapse;
         border: 1px #000000 solid;
     }
-    .Mathcontent>table>tbody>tr>td{
+    
+    .Mathcontent>table>tbody>tr>td {
         border: 1px solid #000000;
         text-align: center;
         font-size: 20px;
         color: black;
     }
-    .Mathcontent>table>tbody>tr>th{
+    
+    .Mathcontent>table>tbody>tr>th {
         border: 1px solid #050303;
         text-align: center;
         font-size: 20px;
         color: black;
     }
-    .out{
-        border-top: 5em #505050 solid; /*上邊框寬度等於表格第一行行高*/
-        border-left: 200px #1b1b1b solid; /*左邊框寬度等於表格第一行第一格寬度*/
-        position: relative; /*讓裏面的兩個子容器絕對定位*/
-        color:rgb(255, 255, 255);
+    
+    .out {
+        border-top: 5em #505050 solid;
+        /*上邊框寬度等於表格第一行行高*/
+        border-left: 200px #1b1b1b solid;
+        /*左邊框寬度等於表格第一行第一格寬度*/
+        position: relative;
+        /*讓裏面的兩個子容器絕對定位*/
+        color: rgb(255, 255, 255);
     }
-   .out>b{
+    
+    .out>b {
         font-style: normal;
         display: block;
         position: absolute;
@@ -372,7 +371,8 @@
         left: -160px;
         width: 200px;
     }
-    .out>em{
+    
+    .out>em {
         font-style: normal;
         display: block;
         position: absolute;
@@ -390,7 +390,8 @@
         margin-right: 100px;
     }
     /*關於我們*/
-    #about{
+    
+    #about {
         /* width: 800px; */
         margin: 0 50px;
         /* height: 1050px; */
@@ -399,44 +400,51 @@
         height: auto;
         color: #ffffff;
     }
-    #about>h1{
+    
+    #about>h1 {
         margin: 20px 0 20px 0;
         border-bottom: #446889 3px solid;
-
     }
-    #about>h4{
+    
+    #about>h4 {
         margin: 60px 0;
         padding: 20px 0;
         text-align: center;
         border-left: #4aafaf 3px solid;
     }
-    #about>table{
-        border-left: #4aafaf 3px solid; 
+    
+    #about>table {
+        border-left: #4aafaf 3px solid;
     }
-    #about>table>tbody>tr>td{
-        border-style: none; 
+    
+    #about>table>tbody>tr>td {
+        border-style: none;
     }
-    .about-name{
+    
+    .about-name {
         margin: 0px 0px 20px 0px;
         /* border:3px rgb(0, 0, 0) dashed; */
-        border-radius:10px; 
+        border-radius: 10px;
         background-color: rgb(255, 253, 253, 0.92);
-        box-shadow:12px 12px 7px rgb(12, 0, 0);
+        box-shadow: 12px 12px 7px rgb(12, 0, 0);
         font-size: 18px;
         padding: 10px;
     }
-    .about-name:hover{
+    
+    .about-name:hover {
         transform: scale(1.05);
     }
-    .about-name>p{
+    
+    .about-name>p {
         font-size: 24px;
         color: #2b0290;
         font-weight: bold;
         margin-bottom: 5px;
         margin: 10px 0;
     }
-   /*會員專區*/
-   .memberrocuse{
+    /*會員專區*/
+    
+    .memberrocuse {
         width: 600px;
         height: 680px;
         border: 1px #a17a7a groove;
@@ -446,22 +454,26 @@
         background-color: #d6b9b9b9;
         text-align: center;
         justify-content: center;
-        box-shadow:12px 12px 7px rgb(48, 46, 46);
+        box-shadow: 12px 12px 7px rgb(48, 46, 46);
         margin-bottom: 5rem;
-   }
-   .memberrocuse>.row{
+    }
+    
+    .memberrocuse>.row {
         text-align: center;
         margin-top: 2rem!important;
         margin: 0px -100px 0px 0px;
-   }
-   .fs-3 {
+    }
+    
+    .fs-3 {
         font-size: 22px!important;
         margin-top: 8px;
     }
     /* 成績顯示頁面 */
+    
     #score {
         margin-top: -4rem;
     }
+    
     #myCanvas {
         margin-top: -5rem;
     }
