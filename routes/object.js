@@ -3,7 +3,22 @@ const router = express.Router();
 const Score = require('../models/score');
 const Answer = require('../models/answer');
 const User = require('../models/users')
-
+//session
+const MongoStore = require('connect-mongo');
+var session = require('express-session');
+const flash = require('express-flash');
+const passport = require('../passport_conf');
+router.use(flash());
+router.use(session({
+    secret: process.env.session_secret,
+    store: MongoStore.create({ mongoUrl: process.env.databaseUrl, ttl: 60 }),
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+}));
+router.use(passport.initialize());
+router.use(passport.session());
+//
 router.get('/score', (req, res) => {
     Score.findOne({}, {}, { sort: { '_id': -1 } }, function(err, data) {
         if (err) throw err;
@@ -91,21 +106,26 @@ router.get('/score', (req, res) => {
                 if (x != 0) num[x - 1] += 1;
                 else num[x] += 1;
             }
-            res.render('score', {
-                title: data.score,
-                object: object,
-                num: num,
-                barColor1: barColor1,
-                barColor2: barColor2,
-                barColor3: barColor3,
-                barColor4: barColor4,
-                barColor5: barColor5,
-                barColor6: barColor6,
-                barColor7: barColor7,
-                barColor8: barColor8,
-                barColor9: barColor9,
-                barColor10: barColor10,
-            });
+            User.findById(req.session.passport.user, function(err, user) {
+                res.render('score', 
+                {
+                    title: user.name,
+                    status:true,
+                    score: data.score,
+                    object: object,
+                    num: num,
+                    barColor1: barColor1,
+                    barColor2: barColor2,
+                    barColor3: barColor3,
+                    barColor4: barColor4,
+                    barColor5: barColor5,
+                    barColor6: barColor6,
+                    barColor7: barColor7,
+                    barColor8: barColor8,
+                    barColor9: barColor9,
+                    barColor10: barColor10,
+                });
+            })
         });
     });
 });
@@ -440,7 +460,7 @@ router.post('/:where/:type', (req, res) => {
         // 設定分數
         let score = 0;
         // 拿取資料庫答案
-        Answer.findOne({ '_id': '61d6bfd5d91553782a09f47f' }, function(err, objects) {
+        Answer.findOne({ '_id': '61d6841ab376df0dad029ca6' }, function(err, objects) {
             let Single = objects.Single;
             let Multiple = objects.Multiple;
             let Optional = objects.Optional;

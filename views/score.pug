@@ -6,14 +6,11 @@ block stylesheets
 block container
     .container.d-flex.flex-column.justify-content-around.align-items-center
         h1 110學年度學科能力測驗#{object}成績
-        h2#score — #{title}分 —
-        //- .d-flex.justify-content-center
-        //-     h3#score= title
+        h2#score — #{score}分 —
         canvas#myCanvas
         script.
             var ctx = document.getElementById("myCanvas").getContext('2d');
             ctx.canvas.parentNode.style.width = '75%';
-            //- console.log(#{barColor});
             var chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -48,9 +45,6 @@ block container
                     title: {
                         display: false,
                         //- text: "top 5 centros com mais projetos"
-                    },
-                    legend: {
-                        position: 'bottom'
                     }
                 }
             });
