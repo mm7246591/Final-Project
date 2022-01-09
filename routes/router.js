@@ -34,44 +34,23 @@ router.get('/member/sign-up', (req, res) => {
     // console.log(req.session);
     // console.log(req.sessionID);
     res.render('member/sign-up', {
-        // title: 'Register'
         status: status,
         title: title
     });
 });
 
 router.post('/member/sign-up', passport.authenticate('register', {
-    successRedirect: '/member',
+    // successRedirect: '/member',
     failureRedirect: '/member/sign-up',
     failureFlash: true
 }), (req, res) => {
+    console.log('註冊成功!!');
     res.render('member', { status: status, title: title });
 });
 
-router.post('/member/sign-up', (req, res, next) => {
-    const {
-        username,
-        email,
-        password
-    } = req.body;
-    const errors = [];
-    if (!username || !email || !password) {
-        errors.push({
-            msg: '請填寫欄位資料'
-        });
-    } else {
-        console.log('進入authenticate register')
-        passport.authenticate('register', {
-            successRedirect: '/member',
-            failureRedirect: '/member/sign-up',
-            failureFlash: true
-        })(req, res, next);
-    }
-});
 router.get('/member', (req, res) => {
     console.log('訪問登入');
     res.render('member', {
-        // title: 'Login'
         status: status,
         title: title
     });
@@ -81,35 +60,13 @@ router.post('/member', passport.authenticate('local', {
     failureRedirect: '/member',
     failureFlash: true
 }), (req, res) => {
-    console.log('登錄成功');
-    // console.log(req.user.name);
+    console.log('登錄成功!!');
+    console.log(req.user.name+"It's my name.");
     status = true;
     title = req.user.name;
     res.render('index', { title: req.user.name, status: status });
 });
-router.post('/member', function(req, res) {
-    var postData = {
-        username: req.body.username,
-        password: req.body.password
-    };
-    User.findOne({
-        username: postData.username,
-    }, function(err, data) {
-        console.log(req.body.password);
-        console.log(data.password);
-        if (bcrypt.compare(req.body.password, data.password)) {
-            console.log('登錄成功');
-            status = true;
-            title = data.name;
-            const name = data.name;
-            const password = data.password;
-            res.render('index', { title: title, status: status });
-        } else {
-            console.log('登錄失敗');
-            res.render('member', { errorusername: '帳號或密碼錯誤', status: status, title: title });
-        }
-    })
-});
+
 router.get('/', (req, res) => {
     res.render('index', { status: status, title: title });
 })
@@ -165,68 +122,12 @@ router.get('/answer', (req, res) => {
     res.render('answer', { status: status, title: title });
 });
 
-router.get('/member', (req, res) => {
-    res.render('member', { status: status, title: title });
-});
-
 router.get('/test', isAuthenticated, (req, res) => {
     res.render('test', { status: status, title: title });
 });
 
 router.get('/about', (req, res) => {
     res.render('about', { status: status, title: title });
-});
-
-// 
-router.post('/member', function(req, res) {
-    var postData = {
-        username: req.body.username,
-        password: req.body.password
-    };
-    User.findOne({
-        username: postData.username,
-        password: postData.password
-    }, function(err, user) {
-        if (err) throw err;
-        if (user) {
-            console.log('登錄成功');
-            res.render('index', { status: status, title: title });
-        } else {
-            console.log('賬號或密碼錯誤');
-            res.render('member', { status: status, title: title });
-        }
-    })
-});
-
-router.post('/member/sign-up', function(req, res) {
-    // 獲取用戶提交的信息
-    var postData = {
-        username: req.body.username,
-        password: req.body.password,
-        name: req.body.name,
-        age: req.body.age,
-        gender: req.body.gender,
-        grade: req.body.grade,
-        mail: req.body.mail
-    };
-    // console.log('username:' + req.body.username);
-    // console.log('name' + req.body.name);
-    // console.log('password' + req.body.password);
-
-    //查詢是否被註冊
-    User.findOne({ username: postData.username }, function(err, data) {
-        if (data) {
-            res.send('此用戶名已被註冊');
-        } else {
-            // 保存到數據庫
-            User.create(postData, function(err, data) {
-                if (err) throw err;
-                console.log('註冊成功');
-                res.render('member', { status: status, title: title });
-                // res.redirect('/userList');      // 重定向到所用用戶列表
-            })
-        }
-    });
 });
 
 module.exports = router;
