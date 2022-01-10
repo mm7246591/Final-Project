@@ -23,7 +23,7 @@ router.use(session({
     store: MongoStore.create({ mongoUrl: process.env.databaseUrl, ttl: 60 }),
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 600 * 1000 } //10分鐘到期
+    // cookie: { maxAge: 60 *60*2 } //10分鐘到期
 }));
 
 router.use(passport.initialize());
@@ -76,6 +76,11 @@ router.get('/logout', (req, res) => {
     req.logOut();
     res.render('index', { status: status, title: title });
 })
+router.get('/answer/110', (req, res) => {
+    console.log('詳解');
+    res.render('answer/110',{status:status, title: title});
+
+});
 router.get('/:where/:type', isAuthenticated, (req, res) => {
     console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
