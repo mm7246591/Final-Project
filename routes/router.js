@@ -31,8 +31,6 @@ router.use(passport.session());
 
 router.get('/member/sign-up', (req, res) => {
     console.log('訪問註冊');
-    // console.log(req.session);
-    // console.log(req.sessionID);
     res.render('member/sign-up', {
         status: status,
         title: title
@@ -61,7 +59,7 @@ router.post('/member', passport.authenticate('local', {
     failureFlash: true
 }), (req, res) => {
     console.log('登錄成功!!');
-    console.log(req.user.name+"It's my name.");
+    console.log(req.user.name + "It's my name.");
     status = true;
     title = req.user.name;
     res.render('index', { title: req.user.name, status: status });
@@ -78,14 +76,13 @@ router.get('/logout', (req, res) => {
 })
 router.get('/answer/110', (req, res) => {
     console.log('詳解');
-    res.render('answer/110',{status:status, title: title});
+    res.render('answer/110', { status: status, title: title });
 
 });
 router.get('/:where/:type', isAuthenticated, (req, res) => {
     console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
         User.findById(req.session.passport.user, function(err, user) {
-            console.log(user);
             if (err) {
                 console.log(err);
             } else {
