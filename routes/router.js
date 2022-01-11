@@ -30,7 +30,6 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get('/member/sign-up', (req, res) => {
-    console.log('訪問註冊');
     res.render('member/sign-up', {
         status: status,
         title: title
@@ -42,12 +41,10 @@ router.post('/member/sign-up', passport.authenticate('register', {
     failureRedirect: '/member/sign-up',
     failureFlash: true
 }), (req, res) => {
-    console.log('註冊成功!!');
     res.render('member', { status: status, title: title });
 });
 
 router.get('/member', (req, res) => {
-    console.log('訪問登入');
     res.render('member', {
         status: status,
         title: title
@@ -58,8 +55,6 @@ router.post('/member', passport.authenticate('local', {
     failureRedirect: '/member',
     failureFlash: true
 }), (req, res) => {
-    console.log('登錄成功!!');
-    console.log(req.user.name + "It's my name.");
     status = true;
     title = req.user.name;
     res.render('index', { title: req.user.name, status: status });
@@ -75,12 +70,10 @@ router.get('/logout', (req, res) => {
     res.render('index', { status: status, title: title });
 })
 router.get('/answer/110', (req, res) => {
-    console.log('詳解');
     res.render('answer/110', { status: status, title: title });
 
 });
 router.get('/:where/:type', isAuthenticated, (req, res) => {
-    console.log(req.originalUrl)
     if (req.params.where === 'member' && req.params.type === 'sign-in') {
         User.findById(req.session.passport.user, function(err, user) {
             if (err) {
