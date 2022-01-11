@@ -139,7 +139,6 @@ router.get('/:where/:type', isAuthenticated, (req, res) => {
             if (err) console.log(err);
             else {
                 Score.find({}, function(err, score) {
-                    console.log(score)
                     if (err) throw err;
                     res.render(`${req.params.where}/${req.params.type}`, {
                         score: score,
@@ -163,10 +162,6 @@ router.get('/userList', function(req, res) {
 
 router.get('/answer', (req, res) => {
     res.render('answer', { status: status, title: title });
-});
-
-router.get('/member', (req, res) => {
-    res.render('member', { status: status, title: title });
 });
 
 router.get('/test', isAuthenticated, (req, res) => {
