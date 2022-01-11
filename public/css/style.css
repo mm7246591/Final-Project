@@ -272,7 +272,7 @@
         border: 5px groove #c30606;
         border-radius: 10px;
         position: fixed;
-        top: 25%;
+        top: 22%;
         right: 0;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -403,9 +403,13 @@
     
     #about>h1 {
         margin: 20px 0 20px 0;
-        border-bottom: #446889 3px solid;
+        border-bottom: #00274a 3px solid;
     }
     
+    #title{
+        color: rgb(161, 184, 183);
+    }
+
     #about>h4 {
         margin: 60px 0;
         padding: 20px 0;
@@ -415,6 +419,7 @@
     
     #about>table {
         border-left: #4aafaf 3px solid;
+        width: 800px;
     }
     
     #about>table>tbody>tr>td {
