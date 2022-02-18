@@ -11,3 +11,4 @@
 * install node.js https://nodejs.org/en/
 * install mongodb https://www.mongodb.com/
 * install mongodb tools https://www.mongodb.com/try/download/tools
+* npm start
