@@ -6,7 +6,7 @@
 * 考試/看到成績及其他考生的級距圖
 * 會員資料/歷史成績
 
-## Geting Start
+## Geting Started
 
 * install node.js https://nodejs.org/en/
 * install mongodb https://www.mongodb.com/
