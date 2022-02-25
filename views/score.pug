@@ -1,0 +1,52 @@
+extends layout
+
+block stylesheets 
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css' rel='stylesheet')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js")
+block container
+    .container.d-flex.flex-column.justify-content-around.align-items-center
+        h1 110學年度學科能力測驗#{object}成績
+        h2#score — #{score}分 —
+        canvas#myCanvas
+        script.
+            var ctx = document.getElementById("myCanvas").getContext('2d');
+            ctx.canvas.parentNode.style.width = '75%';
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [ "10", "20", "30", "40", "50", "60", "70", "80", "90", "100" ],
+                    datasets: [{
+                        data: [ #{num} ],
+                        label: '不同分數之人數級距分布圖',
+                        backgroundColor: [
+                            '#{barColor1}',
+                            '#{barColor2}',
+                            '#{barColor3}',
+                            '#{barColor4}',
+                            '#{barColor5}',
+                            '#{barColor6}',
+                            '#{barColor7}',
+                            '#{barColor8}',
+                            '#{barColor9}',
+                            '#{barColor10}',
+                        ],
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 3,
+                                min: 0,
+                                max: 9
+                            }
+                        }]
+                    },
+                    title: {
+                        display: false,
+                        //- text: "top 5 centros com mais projetos"
+                    }
+                }
+            });
+block javascript 
+    script(src='/javascripts/scoreShow.js')

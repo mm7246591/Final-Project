@@ -1,0 +1,45 @@
+extends ../layout
+block container 
+    .progress.fixed-bottom
+        .mathbar.progress-bar.progress-bar-striped.progress-bar-animated.bg-info(role='progressbar' aria-valuemin='0' aria-valuemax='100' style="width: 0%")
+    .d-flex.justify-content-between.my-5
+        .time.d-flex.flex-column.ms-5.h-100
+            h3 剩餘時間：
+            span#count-down-timer.text-center.fs-2
+        #question-form.Mathcontent.d-flex.flex-column.p-5.h-auto
+        .content
+            .d-flex.flex-column.align-items-center.p-3
+                form#answer-form.d-flex.flex-column.align-items-center.my-3.Math(action='/quize/Math',method="POST")
+                    .letter.d-flex
+                        p 1
+                        p 2
+                        p 3
+                        p 4
+                        p 5
+                        p 6
+                        p 7
+                        p 8
+                        p 9
+                        p 0
+                        p -
+                        p +/-
+                        p
+                        p
+                        p
+                        p 1
+                        p 2
+                        p 3
+                        p 4
+                        p 5
+                        p 6
+                        p 7
+                        p 8
+                        p 9
+                        p 0
+                        p -
+                        p +/-
+                    #from-checkbox.mathCheckForm
+                    input#submit(type='submit')
+block javascript
+    script(src='/javascripts/script.js')
+    script(src='/javascripts/Math.js')

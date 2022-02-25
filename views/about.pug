@@ -1,0 +1,106 @@
+doctype html
+html
+  head
+    link(href='/bootstrap-5.0.2-dist/css/bootstrap.min.css' rel='stylesheet')
+    link(href='/css/style.css' rel='stylesheet')
+    link(rel='icon' href='/images/icon.ico')
+    script(src="/javascripts/jquery-3.6.0.js")
+    script(src='/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js')
+    Title 學測考生線上測驗平台
+    block stylesheets
+  body(style="background:#2d3e62cf;")
+   header
+    #nav.d-flex.justify-content-around.align-items-center
+        .fs-1.title
+            a(href='/') 學測測驗平台
+        ul.nav.justify-content-center.fs-5
+          li.nav-item
+            a.nav-link.active.link-dark(aria-current='page' href='/about') 關於我們
+          li.nav-item
+            a.nav-link.link-dark(href='/test' tabindex='-1' aria-disabled='true') 開始考試
+          li.nav-item
+            a.nav-link.link-dark(href='/answer') 歷屆解答
+          if status==true 
+            li.nav-item
+              a.nav-link.link-dark(href='/member/sign-in') #{title}
+            li.nav-item
+              a.nav-link.link-dark(href='/') 登出
+          else
+            li.nav-item
+              a.nav-link.link-dark(href='/member') 會員登入
+block container 
+    .container.d-flex.justify-content-center.align-items-top.mt-5
+        #about.d-flex.flex-column.p-5.align-items-center(style="border-collapse:collapse;")
+            h1 設計動機
+            h4 之前準備學測時發現要找尋歷屆試題十分不便，如果不想買厚重的題本就必須上網逐年搜尋單科試題，解答及詳解甚至還必須另外搜查。因此我們期望設計出一款”學測試題線上考“的網站，並統整國、英、數三科近三年的試題及解答、詳解，方便考生利用。
+            h1 目的
+            h4 使考生不再需要購買各式題本及厚重解析，不僅可實現環保、也能減輕學生背包的負擔，隨時隨地都能進行測驗。
+            h1 關於我們
+            table.table
+                tbody
+                    tr
+                        td
+                            .row.about-name
+                                p 許靜玟
+                                table.table.table-striped
+                                    tbody
+                                        tr
+                                            td(style="width:15%") 學系
+                                            td 元智大學資傳系科技組
+                                            
+                                        tr
+                                            td(style="width:15%") 年齡
+                                            td 20
+                                        tr
+                                            td(style="width:15%") 性別
+                                            td 女
+                                        tr
+                                            td(style="width:15%") 電話
+                                            td 0965-332-147
+                                        tr
+                                            td(style="width:15%") E-mail
+                                            td chrissy93881209@gmail.com
+                    tr
+                        td
+                            .row.about-name
+                                p 黃郁淇
+                                table.table.table-striped 
+                                    tbody
+                                        tr
+                                            td(style="width:15%") 學系
+                                            td 元智大學資傳系科技組
+                                        tr
+                                            td(style="width:15%") 年齡
+                                            td 20
+                                        tr
+                                            td(style="width:15%") 性別
+                                            td 女
+                                        tr
+                                            td(style="width:15%") 電話
+                                            td 0963-558-561
+                                        tr
+                                            td(style="width:15%") E-mail
+                                            td joyce890926@gmail.com
+                    tr
+                        td
+                            .row.about-name
+                                p 陳柏諺
+                                table.table.table-striped 
+                                    tbody
+                                        tr
+                                            td(style="width:15%") 學系
+                                            td 元智大學資傳系科技組
+                                        tr
+                                            td(style="width:15%") 年齡
+                                            td 20
+                                        tr
+                                            td(style="width:15%") 性別
+                                            td 男
+                                        tr
+                                            td(style="width:15%") 電話
+                                            td 0900000000
+                                        tr
+                                            td(style="width:15%") E-mail
+                                            td 0900000000@0000000
+block javascript 
+    script(src='/javascripts/script.js')

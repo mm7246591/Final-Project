@@ -1,0 +1,48 @@
+extends ../layout
+block stylesheets 
+block container 
+    .container.d-flex.justify-content-center.align-items-center
+        .d-flex.flex-column
+            form#sign-up-form.row.g-3(data-toggle='validator' name='myForm' method='POST' action='/member/sign-up')
+                .col-12
+                    label.form-label(for='username') 帳號
+                    input#usernmae.form-control(type='text' size='30' name="username")
+                    if typeof messages != 'undefined'
+                        if messages.error
+                            .alert.alert-warning.alert-dismissible.fade.show(role="alert")
+                                strong= messages.error
+                .col-md-6
+                    label.form-label(for='password') 密碼
+                    #errPW.help-block.with-errors.invalid
+                        p
+                    input#password.inputPassword.form-control( name="password" type='text' placeholder='請設定長度大於6的密碼' required='' oninput='chePassword(this.value)')
+                .col-md-6
+                    label.form-label(for='inputPassword4') 確認密碼
+                    #errPW2.invalid
+                        p
+                    input.inputPassword.form-control(type='password' required='' oninput='chePassword2(this.value)')
+                .col-4
+                    label.form-label(for='name') 姓名
+                    input#name.form-control( name="name" type='text' placeholder='請輸入全名' required='' onchange="value=value.replace(/[^\一-\龥]/g,'')")
+                .col-2
+                    label.form-label(for='age') 年齡
+                    input#age.form-control(name="age" type='text' required='' oninput="value=value.replace(/[^\\d]/g,'')" )
+                    
+                .col-3
+                    label.form-label(for='age') 性別
+                    select#sel_gender.form-select(aria-label='Default select example' name='gender')
+                        option(value='男' selected='') 男
+                        option(value='女') 女
+                .col-2
+                    label.form-label(for='inputAddress2') 年級
+                    select#sel_grad.form-select(aria-label='Default select example' name='grade')
+                        option(value='1' selected='') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                .col-12
+                    label.form-label(for='mail') 電子郵件信箱
+                    input#mail.form-control(name="mail" type='text' required='' oninput='' pattern='^(([0-9a-zA-Z]+)|([0-9a-zA-Z]+[_.0-9a-zA-Z-]*[0-9a-zA-Z]+))@([a-zA-Z0-9-]+[.])+([a-zA-Z]{2}|net|NET|com|COM|gov|GOV|mil|MIL|org|ORG|edu|EDU|int|INT)$')
+                .col-12
+                    button.btn.btn-primary(type='submit') 註冊
+block javascript 
+    script(src='/javascripts/sign-up.js') 
