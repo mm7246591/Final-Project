@@ -11,4 +11,5 @@
 * install node.js https://nodejs.org/en/
 * install mongodb https://www.mongodb.com/
 * install mongodb tools https://www.mongodb.com/try/download/tools
-* npm start
+* use mongodb tools import API/data to mongodbb like this=> https://www.youtube.com/watch?v=n_mdEM9iPCE&t=309s
+* npm install/npm start
